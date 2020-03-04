@@ -1,7 +1,12 @@
-#include "Card.h"
-
 #ifndef DECK_H
 #define DECK_H
+
+struct Card
+{
+        int value = 0;
+        Card* next = nullptr;
+        Card(int value) {this->value = value;}
+};
 
 class Deck
 {
