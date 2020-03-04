@@ -12,6 +12,101 @@ d.	The class should include IsEmpty, IsFull and MakeEmpty methods.
 	the list is full when trying to add an item should throw a custom error class.
 */
 
-template <class Item>
+#include <iostream>
+using namespace std;
+
+class ListFull {
+};
+class ListEmpty {
+};
+class OutOfBoundsIndex {
+};
+
+template<class T>
 class OrderedList {
+
+public:
+	int maxSize = 0;
+	T **data;
+	int size = 0;
+
+	int moveAndCompares = 0;
+
+public:
+	OrderedList(int size) {
+		data = new T*[size];
+		maxSize = size;
+	}
+
+	void addItem(T *d) {
+
+		if (size == 0) {
+			data[0] = d;
+			size++;
+			return;
+		}
+
+		if (size == maxSize) {
+			throw ListFull();
+		}
+
+		bool isReached = false;
+		int counter = 0;
+
+		while (!isReached) {
+
+			if (counter == size) {
+				data[size] = d;
+				isReached = true;
+
+			} else if (*d < *data[counter] || *d == *data[counter]) {
+
+				for (int i = (size - 1); i >= counter; i--) {
+					data[i + 1] = data[i];
+				}
+				data[counter] = d;
+				isReached = true;
+			}
+
+			counter++;
+
+		}
+		size++;
+
+	}
+
+	T* removeItem(int ind) {
+		if (size == 0) {
+			throw ListEmpty();
+		}
+
+		if (ind < 0 || ind > size) {
+			throw OutOfBoundsIndex();
+		}
+
+		T* ans  = data[ind];
+
+		for (int i = ind; i < size; i++) {
+			data[i] = data[i + 1];
+		}
+		size--;
+
+		return ans;
+	}
+
+	bool isEmpty() {
+		return size == 0;
+	}
+
+	bool isFull() {
+		return size == maxSize;
+	}
+
+	void makeEmpty() {
+		for (int i = 0; i < size; i++) {
+			delete data[i];
+		}
+		size = 0;
+	}
+
 };

@@ -22,6 +22,28 @@ f.	Every insert/remove operation should be identically performed against all 3 o
 	Discuss other methods you discussed as a group and decided not to use.
 */
 
+#include "OrderedList.h"
+#include <iostream>
+
+using namespace std;
+
 int main() {
-	return 0;
-}
+
+	int size = 7;
+	OrderedList<int>* ol = new OrderedList<int>(size);
+
+	ol->addItem(new int(10));
+	ol->addItem(new int(9));
+	ol->addItem(new int(8));
+	ol->addItem(new int(7));
+	ol->addItem(new int(13));
+	ol->addItem(new int(1));
+	ol->addItem(new int(-2));
+
+	cout<<ol->isFull()<<endl;
+	cout<<*(ol->removeItem(2))<<": returned"<<endl;
+	cout<<ol->isFull()<<endl;
+
+	for(int i = 0;i<size;i++) {
+		cout<<*(ol->data[i])<<endl;
+	}
