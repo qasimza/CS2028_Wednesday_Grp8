@@ -1,7 +1,8 @@
 #include "Deck.h"
 
-class Underflow{};
 
+
+// Constructor
 Deck::Deck(int* deckArray, int SIZE)
 {
     for(int i = 0; i < SIZE; i++)
@@ -10,6 +11,7 @@ Deck::Deck(int* deckArray, int SIZE)
     }
 }
 
+// Add
 void Deck::push(int value)
 {
     Card* card = new Card(value);
@@ -29,6 +31,8 @@ void Deck::push(int value)
     cardsRemaining++;
 }
 
+
+// Remove
 int Deck::pop()
 {
     if(top == nullptr)
@@ -44,6 +48,7 @@ int Deck::pop()
     return value;
 }
 
+//  Peek
 int Deck::peek()
 {
     return top->value;

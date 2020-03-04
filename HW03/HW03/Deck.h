@@ -22,6 +22,8 @@ class Deck
         int peek();
         int cardsLeft(){return cardsRemaining;}
 
+		// Exception
+		class Underflow {};
 };
 
 #endif

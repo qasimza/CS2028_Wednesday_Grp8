@@ -1,8 +1,8 @@
 #include <iostream>
 #include <ctime>
 #include <string>
-#include "Deck.cpp"
-#include "SidePile.cpp"
+#include "Deck.h"
+#include "SidePile.h"
 
 using namespace std;
 
@@ -10,23 +10,28 @@ using namespace std;
 const int WHOLE_DECK = 52;
 const int HALF_DECK = WHOLE_DECK/2;
 
+//Structures
+struct Player {
+	string playerName;
+	Deck deck;
+	SidePile sidePile;
+	int totalCards;
+	void updateTotalCards() {
+		totalCards = deck.cardsLeft() + sidePile.cardsLeft();
+	}
+};
+
+
 // Function Prototypes
 void assignDecks(int*, int*, int*);
 void shuffleDeck(int*, int);
 int getValidInput(string, int, int);
+void playOneRound(Player, Player, int);
+
 
 // Main
 int main()
 {
-    // Initialize Prompt Strings
-    string choicePrompt = "\
-(1) Check how many cards are in your deck\n\
-(2) Check how many cards are in the computer's deck\n\
-(3) Check how many cards in your side pile\n\
-(4) Peek at your top card\n\
-(5) Thing five\n\
-Enter an option: ";
-
     // Seed Random
     srand(time(0));
 
@@ -58,34 +63,73 @@ Enter an option: ";
     SidePile playerSide;
     SidePile computerSide;
 
-    while((playerDeck.cardsLeft() + playerSide.cardsLeft() > 0) && (computerDeck.cardsLeft() + computerSide.cardsLeft() > 0))
-    {
-        int choice = getValidInput(choicePrompt, 1, 5);
+	//Set rules
+	string rulePrompt = "\
+(1) Select number of rounds\n\
+(2) Play until either player ends up with 0 cards\n\
+Enter an option: ";
+	int numRounds, totalRounds = 0;
+	if (getValidInput(rulePrompt, 1, 2) == 1) {
+		numRounds = getValidInput("Enter number of rounds (1 or greater): ", 1, INT_MAX);
+	}
+	else {
+		numRounds = INT_MAX;
+	}
 
-        switch(choice)
-        {
-            case 1:
-                cout << "Cards in your deck: " << playerDeck.cardsLeft() << endl;
-                cout << endl;
-                break;
-            case 2:
-                cout << "Cards in computer's deck: " << computerDeck.cardsLeft() << endl;
-                cout << endl;
-                break;
-            case 3:
-                cout << "Cards in your side pile: " << playerSide.cardsLeft() << endl;
-                cout << endl;
-                break;
-            case 4:
-                int topCard = playerDeck.peek();
-                cout << "Your top card is: " << (topCard == 14 ? "Ace" : topCard == 13 ? "King" :
-                                                 topCard == 12 ? "Queen" : topCard == 11 ? "Jack" :
-                                                 to_string(topCard)) << endl;
-                cout << endl;
-                break;
-        }
+	//  Play game
+	Player player = {"Player", playerDeck, playerSide, 0};
+	Player computer = {"Computer", computerDeck, computerSide, 0};
+	
+    do{
+		player.updateTotalCards();
+		computer.updateTotalCards();
+		playOneRound(player, computer, totalRounds);
+		totalRounds++;
+	} while (player.totalCards > 0 && computer.totalCards > 0 && totalRounds != numRounds);
+	//Final values
+	player.updateTotalCards();
+	computer.updateTotalCards();
+	cout << "Game Over\n";
+	
+}
 
-    }
+/*
+Plays one round of the game
+*/
+int playOneRound(Player player, Player computer, int totalRounds) {
+	string choicePrompt = "\
+(1) Check how many cards are in your deck\n\
+(2) Check how many cards are in the computer's deck\n\
+(3) Check how many cards in your side pile\n\
+(4) Peek at your top card\n\
+(5) Play card. \n\
+Enter an option: ";
+	int choice = getValidInput(choicePrompt, 1, 5);
+	cout << "Round: " << totalRounds + 1 << endl;
+	switch (choice) {
+	case 1:
+		cout << "Cards in your deck: " << player.deck.cardsLeft() << endl;
+		break;
+	case 2:
+		cout << "Cards in computer's deck: " << computer.deck.cardsLeft() << endl;
+		break;
+	case 3:
+		cout << "Cards in your side pile: " << player.sidePile.cardsLeft() << endl;
+		break;
+	case 4:
+		int topCard = player.deck.peek();
+		cout << "Your top card is: " << (topCard == 14 ? "Ace" : topCard == 13 ? "King" :
+			topCard == 12 ? "Queen" : topCard == 11 ? "Jack" :
+			to_string(topCard)) << endl;
+
+
+		break;
+		cout << endl;
+	case 5:
+		cout << "Playing Card" << endl;
+		
+	}
+	return choice < 3 ? totalRounds : ++totalRounds;
 }
 
 /*
@@ -127,7 +171,7 @@ void assignDecks(int* playerDeck, int* computerDeck, int* baseDeck)
 */
 void shuffleDeck(int* deckArray, int SIZE)
 {
-    int newDeck[SIZE];
+    int *newDeck = new int[SIZE];
 
     // Keeps track of items left in deck array
     int itemsRemaining = SIZE;
@@ -162,18 +206,21 @@ void shuffleDeck(int* deckArray, int SIZE)
 
 int getValidInput(string prompt, int minVal, int maxVal)
 {
+
     int value = minVal - 1;
-    while(value < minVal || value > maxVal)
+	cout << "OPTIONS:\n";
+	cout << prompt;
+	cin >> value;
+    while(cin.fail() || value < minVal || value > maxVal)
     {
-        cout << prompt;
+		// Clear buffer and error
+		cin.clear();
+		cin.ignore();
+        
+		// Display prompt and accept user input 
+		cout << "ERROR:Menu option does not exist. Select different option: ";
         cin >> value;
         cout << endl;
-
-        if(cin.fail())
-        {
-            cin.clear();
-            cin.ignore(80, '\n');
-        }
     }
     return value;
 }
