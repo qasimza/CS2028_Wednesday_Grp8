@@ -1,5 +1,6 @@
 #include <iostream>
 #include <ctime>
+#include <string>
 #include "Deck.cpp"
 #include "SidePile.cpp"
 
