@@ -8,7 +8,7 @@ void SidePile::push(int value){
     if(top == MAX_SIZE){
         throw Overflow();
     }
-	stackList[++top] = value;
+	stackList[top++] = value;
 }
 
 int SidePile::pop(){
@@ -16,4 +16,11 @@ int SidePile::pop(){
         throw Underflow();
     }
     return stackList[--top];
+}
+
+int SidePile::peek() {
+	if (top == 0) {
+		throw Underflow();
+	}
+	return stackList[top - 1];
 }

@@ -12,6 +12,7 @@ class SidePile
         SidePile();
         void push(int);
         int pop();
+		int peek();
         int cardsLeft(){return top;}
 
 		// Exception
