@@ -12,79 +12,104 @@ Task 2
 #include "OrderedList.h"
 
 template<class T>
-class MidOrderedList: public OrderedList<T> {
-
+class MidOrderedList : public OrderedList<T>{
+	
 public:
+	MidOrderedList(int size) : OrderedList<T>(size){}
 
-	MidOrderedList(int size):OrderedList<T>(size){}
+	void addItem(T* d) {
 
-	void addItem(T *d) {
-
-		cout<<"Here"<<endl;
 		if (this->size == this->maxSize) {
 			throw ListFull();
 		}
 
-		bool isReached = false;
-//		int counter = static_cast<int>(static_cast<float>(this->maxSize)/2);
-//		cout<<static_cast<int>(this->maxSize)/2;
-		int counter = 3;
+		int counter = (this->maxSize / 2) - 1;
 
-		while (!isReached) {
+		// If counter is greater than array size, the counter would be set to the position of the last item in the list
+		if (counter > this->size - 1) {			
+			counter = this->size - 1;
+		}
 
-			if (counter > this->size) {
-				if (*d >= *this->data[counter] && counter <= this->size) {
-					for (int i = (this->size - 1); i >= counter; i--) {
-						this->data[i + 1] = this->data[i];
-					}
-					this->data[this->size] = d;
-					isReached = true;
-					this->size++;
-					break;
-				}
+		if (counter == -1) {
+			this->data[0] = d;
+			this->size++;
+		}
 
-				if (counter == 0) {
-					for (int i = (this->size - 1); i >= 0; i--) {
-						this->data[i + 1] = this->data[i];
-					}
-					this->data[0] = d;
-					isReached = true;
-					this->size++;
-					break;
-				}
-//				cout<<"<<etdl;
-				counter--;
+		// Logic to move left (size of array is smaller than maxSize / 2)
+		else if (counter == (this->size - 1)) { 
+			this->searchLeft(d, counter);
+		}
 
-			} else if (*d <= *this->data[counter]) {
+		// Logic if size of array is same as MaxSize/2 or greater
+		else {
 
-				if (*d > *this->data[counter - 1]) {
-					for (int i = (this->size - 1); i >= counter; i--) {
-						this->data[i + 1] = this->data[i];
-					}
-
-					this->data[counter] = d;
-					isReached = true;
-					this->size++;
-					break;
-				}
-				counter--;
+			//Determine whether to move left or right with the below condition statement
+			if (*d < *(this->data[counter])) {		
+				this->searchLeft(d, counter);
 			}
 
 			else {
-				if (*d <= *this->data[counter + 1]) {
-					for (int i = (this->size - 1); i >= counter; i--) {
-						this->data[i + 1] = this->data[i];
-					}
-
-					this->data[counter] = d;
-					isReached = true;
-					this->size++;
-					break;
-				}
-				counter++;
+				this->searchRight(d, counter);
 			}
 		}
 
+	}
+
+	private:
+
+	void searchLeft(T* d, int counter) {
+		bool isReached = false;
+		while (!isReached) {
+
+			if (*d >= *(this->data[counter])) {  // Add item to middle of list once correct position is detected and shift items over
+
+				for (int i = (this->size - 1); i > counter; i--) {
+					this->data[i + 1] = this->data[i];
+				}
+				this->data[counter + 1] = d;
+				isReached = true;
+				this->size++;
+			}
+
+			else {
+				counter--;
+			}
+
+			if (counter == -1) {		// Add item to front after moving everything if the counter has reached the beginning of list
+				for (int i = (this->size - 1); i > counter; i--) {
+					this->data[i + 1] = this->data[i];
+				}
+				this->data[counter + 1] = d;
+				isReached = true;
+				this->size++;
+			}
+		}
+	}
+
+	void searchRight(T* d, int counter) {
+		bool isReached = false;
+		while (!isReached) {
+
+			if (*d <= *(this->data[counter + 1])) {  // Add item to middle of list once correct position is detected and shift items over
+
+				for (int i = (this->size - 1); i > counter; i--) {
+					this->data[i + 1] = this->data[i];
+				}
+				this->data[counter + 1] = d;
+				isReached = true;
+				this->size++;
+			}
+
+			else {
+				counter++;
+			}
+
+			if (counter == this->size - 1) {		// Add item to end if the counter has reached the end of list
+				this->data[this->size] = d;
+				isReached = true;
+				this->size++;
+			}
+		}
 	}
 
 };

@@ -13,6 +13,7 @@ d.	The class should include IsEmpty, IsFull and MakeEmpty methods.
 */
 
 #include <iostream>
+
 using namespace std;
 
 class ListFull {
@@ -21,6 +22,7 @@ class ListEmpty {
 };
 class OutOfBoundsIndex {
 };
+
 
 template<class T>
 class OrderedList {
@@ -34,19 +36,19 @@ public:
 
 public:
 	OrderedList(int size) {
-		data = new T*[size];
-		maxSize = size;
+		this->data = new T*[size];
+		this->maxSize = size;
 	}
 
 	void addItem(T *d) {
 
-		if (size == 0) {
-			data[0] = d;
-			size++;
+		if (this->size == 0) {
+			this->data[0] = d;
+			this->size++;
 			return;
 		}
 
-		if (size == maxSize) {
+		if (this->size == this->maxSize) {
 			throw ListFull();
 		}
 
@@ -55,58 +57,75 @@ public:
 
 		while (!isReached) {
 
-			if (counter == size) {
-				data[size] = d;
+			if (counter == this->size) {
+				this->data[this->size] = d;
 				isReached = true;
 
-			} else if (*d < *data[counter] || *d == *data[counter]) {
+			} else if (*d < *this->data[counter] || *d == *this->data[counter]) {
 
-				for (int i = (size - 1); i >= counter; i--) {
-					data[i + 1] = data[i];
+				for (int i = (this->size - 1); i >= counter; i--) {
+					this->data[i + 1] = this->data[i];
 				}
-				data[counter] = d;
+				this->data[counter] = d;
 				isReached = true;
 			}
 
 			counter++;
 
 		}
-		size++;
+		this->size++;
 
 	}
 
 	T* removeItem(int ind) {
-		if (size == 0) {
+		if (this->size == 0) {
 			throw ListEmpty();
 		}
 
-		if (ind < 0 || ind > size) {
+		if (ind < 0 || ind > this->size) {
 			throw OutOfBoundsIndex();
 		}
 
-		T* ans  = data[ind];
+		T* ans  = this->data[ind];
 
-		for (int i = ind; i < size; i++) {
-			data[i] = data[i + 1];
+		for (int i = ind; i < this->size; i++) {
+			this->data[i] = this->data[i + 1];
 		}
-		size--;
+		this->size--;
 
 		return ans;
 	}
 
 	bool isEmpty() {
-		return size == 0;
+		return  this->size == 0;
 	}
 
 	bool isFull() {
-		return size == maxSize;
+		return  this->size == this->maxSize;
 	}
 
 	void makeEmpty() {
-		for (int i = 0; i < size; i++) {
-			delete data[i];
+		for (int i = 0; i < this->size; i++) {
+			delete this->data[i];
 		}
-		size = 0;
+		this->size = 0;
 	}
+//
+//public:
+//	int getSize() { return this->size;}
+//
+//	int getMaxSize() { return this->maxSize; }
+//
+//	T** getData() { return this->data; }
+//
+//	int getMovesAndCompare() { return this->moveAndCompares; }
+//
+//	void setSize(int val) { this->size = val; }
+//
+//	void setMovesAndCompare(int val) { this->moveAndCompares = val; }
+//
+//	void incrementSize(int increment) { this->size += increment; }
+//
+//	void incrementMovesAndCompare(int increment) { this->moveAndCompares += increment; }
 
 };
