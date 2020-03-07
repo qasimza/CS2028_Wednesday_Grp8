@@ -25,6 +25,7 @@ f.	Every insert/remove operation should be identically performed against all 3 o
 #include "OrderedList.h"
 #include <iostream>
 #include "MidOrderedList.h"
+#include "BlankOrderedList.h"
 
 using namespace std;
 
@@ -41,8 +42,29 @@ int main() {
 	ol->addItem(new int(-5));
 	ol->addItem(new int(-5));
 
-	for (int i = 0; i < 7; i++) {
-		cout << *(ol->removeItem(0)) << endl;
+	cout << endl;
+
+	// Use the below for loop block to test only BlankOrderedList
+
+	//int* temp;
+	//for (int i = 0; i < size; i++) {
+	//	try {
+	//		temp = ol->removeItem(i);
+	//		if (temp != nullptr) {
+	//			cout << *(temp) << endl;
+	//			delete temp;
+	//		}
+	//		else {
+	//			cout << "nullPtr" << endl;
+	//		}
+	//	}
+	//	catch (ListEmpty) {}
+	//}
+
+	for (int i = 0; i < size; i++) {
+		cout << *ol->removeItem(0) << endl;
 	}
+
+	cout << "Moves and compares: " << ol->getMoveAndCompares() << endl;
 
 }

@@ -12,7 +12,115 @@ Task 3
 */
 
 #include "OrderedList.h"
+#include <math.h>
 
-template <class Item>
-class BlankOrderedList :public OrderedList<Item> {
+template <class T>
+class BlankOrderedList :public OrderedList<T> {
+
+public:
+	BlankOrderedList(int size) : OrderedList<T>(size) {
+		for (int i = 0; i < this->maxSize; i++) {
+			this->data[i] = nullptr;
+		}
+	}
+
+	void addItem(T* d) {
+
+		// Add element to middle if array is empty
+		this->moveAndCompares++;
+		if (this->size == 0) {
+			this->data[(this->maxSize / 2) - 1] = d;
+			this->size++;
+			cout << *d << " added to index pos: " << ((this->maxSize / 2) - 1) << endl;
+			return;
+		}
+
+		if (this->size == this->maxSize) {
+			throw ListFull();
+		}
+
+		bool isReached = false;
+		int counter = 0;
+		int lowerBound = -1;
+		int upperMoveBound = 0;
+		int counted = 0;
+
+		while (!isReached) {
+			this->moveAndCompares++;
+
+			if (this->data[counter] != nullptr) {
+
+				this->moveAndCompares++;
+				if (*d <= *this->data[counter]) {
+
+					int diff = abs(counter - lowerBound);  //Difference between index of last value encoutered and current positon
+
+					 // If there is/are empty spot(s) at and before the required position
+						this->moveAndCompares++;
+						if (diff > 1) {
+							this->data[lowerBound + (diff / 2)] = d;
+							isReached = true;
+							this->size++;
+							cout << *d << " added to index pos: " << lowerBound + (diff / 2) << endl;
+						}
+
+						else {
+
+						//	Logic to detect upto which point to shift everything over (Until an emtpy spot is encoutered)
+							upperMoveBound = counter;
+							for (int i = counter+1; i < this->maxSize; i++) {
+								this->moveAndCompares++;
+								if (this->data[i] == nullptr) {
+									break;
+								}
+								upperMoveBound++;
+							}
+
+						//  Shift everything upto an empty spot
+							for (int i = (upperMoveBound); i >= counter; i--) {
+								this->data[i + 1] = this->data[i];
+								this->moveAndCompares+2;
+							}
+							this->data[counter] = d;
+							isReached = true;
+							this->size++;
+							cout << *d << " added to index pos: " << counter << endl;
+						}
+				}
+				lowerBound = counter;
+				counted++;
+
+			//	Logic if item being added is the largest item
+				this->moveAndCompares + 2;
+				if (counted == this->size && !isReached) {
+					this->data[lowerBound + (((this->maxSize - 1) - lowerBound) / 2)] = d;
+					isReached = true;
+					this->size++;
+					cout << *d << " added to index pos: " << lowerBound + (((this->maxSize - 1) - lowerBound) / 2) << endl;
+				}
+				
+
+			}
+			
+			counter++;
+		}
+
+	}
+
+	T* removeItem(int ind) {
+		if (this->size == 0) {
+			throw ListEmpty();
+		}
+
+		if (ind < 0 || ind > this->maxSize) {
+			throw OutOfBoundsIndex();
+		}
+
+		T* ans = this->data[ind];
+		this->data[ind] = nullptr;
+		this->size--;
+
+		return ans;
+	}
+
 };

@@ -26,10 +26,12 @@ public:
 		int counter = (this->maxSize / 2) - 1;
 
 		// If counter is greater than array size, the counter would be set to the position of the last item in the list
-		if (counter > this->size - 1) {			
+		this->moveAndCompares++;
+		if (counter > this->size - 1) {		
 			counter = this->size - 1;
 		}
 
+		this->moveAndCompares++;
 		if (counter == -1) {
 			this->data[0] = d;
 			this->size++;
@@ -42,9 +44,9 @@ public:
 
 		// Logic if size of array is same as MaxSize/2 or greater
 		else {
-
 			//Determine whether to move left or right with the below condition statement
-			if (*d < *(this->data[counter])) {		
+			this->moveAndCompares++;
+			if (*d < *(this->data[counter])) {	
 				this->searchLeft(d, counter);
 			}
 
@@ -52,19 +54,23 @@ public:
 				this->searchRight(d, counter);
 			}
 		}
+		this->moveAndCompares++;  //For the else if above the else block
 
 	}
 
-	private:
+private:
 
 	void searchLeft(T* d, int counter) {
 		bool isReached = false;
 		while (!isReached) {
+			this->moveAndCompares++;
 
+			this->moveAndCompares++;
 			if (*d >= *(this->data[counter])) {  // Add item to middle of list once correct position is detected and shift items over
 
 				for (int i = (this->size - 1); i > counter; i--) {
 					this->data[i + 1] = this->data[i];
+					this->moveAndCompares+=2;
 				}
 				this->data[counter + 1] = d;
 				isReached = true;
@@ -75,9 +81,12 @@ public:
 				counter--;
 			}
 
+			this->moveAndCompares++;
 			if (counter == -1) {		// Add item to front after moving everything if the counter has reached the beginning of list
+
 				for (int i = (this->size - 1); i > counter; i--) {
 					this->data[i + 1] = this->data[i];
+					this->moveAndCompares+=2;
 				}
 				this->data[counter + 1] = d;
 				isReached = true;
@@ -89,11 +98,14 @@ public:
 	void searchRight(T* d, int counter) {
 		bool isReached = false;
 		while (!isReached) {
+			this->moveAndCompares++;
 
+			this->moveAndCompares++;
 			if (*d <= *(this->data[counter + 1])) {  // Add item to middle of list once correct position is detected and shift items over
 
 				for (int i = (this->size - 1); i > counter; i--) {
 					this->data[i + 1] = this->data[i];
+					this->moveAndCompares+=2;
 				}
 				this->data[counter + 1] = d;
 				isReached = true;
@@ -104,6 +116,7 @@ public:
 				counter++;
 			}
 
+			this->moveAndCompares++;
 			if (counter == this->size - 1) {		// Add item to end if the counter has reached the end of list
 				this->data[this->size] = d;
 				isReached = true;

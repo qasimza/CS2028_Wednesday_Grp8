@@ -27,7 +27,7 @@ class OutOfBoundsIndex {
 template<class T>
 class OrderedList {
 
-public:
+protected:
 	int maxSize = 0;
 	T **data;
 	int size = 0;
@@ -42,6 +42,7 @@ public:
 
 	void addItem(T *d) {
 
+		this->moveAndCompares++;
 		if (this->size == 0) {
 			this->data[0] = d;
 			this->size++;
@@ -56,19 +57,24 @@ public:
 		int counter = 0;
 
 		while (!isReached) {
+			this->moveAndCompares++;    // moveAndCompares+=2 was not used for the sake of understandability
 
+			this->moveAndCompares++;
 			if (counter == this->size) {
 				this->data[this->size] = d;
 				isReached = true;
-
-			} else if (*d < *this->data[counter] || *d == *this->data[counter]) {
+			} 
+			
+			else if (*d <= *this->data[counter]) {
 
 				for (int i = (this->size - 1); i >= counter; i--) {
 					this->data[i + 1] = this->data[i];
+					this->moveAndCompares+=2;    //+=2 because there is also a comparison happening inside the for loop (i >= counter) 
 				}
 				this->data[counter] = d;
 				isReached = true;
 			}
+			this->moveAndCompares++;
 
 			counter++;
 
@@ -90,6 +96,7 @@ public:
 
 		for (int i = ind; i < this->size; i++) {
 			this->data[i] = this->data[i + 1];
+			this->moveAndCompares+=2;
 		}
 		this->size--;
 
@@ -110,22 +117,8 @@ public:
 		}
 		this->size = 0;
 	}
-//
-//public:
-//	int getSize() { return this->size;}
-//
-//	int getMaxSize() { return this->maxSize; }
-//
-//	T** getData() { return this->data; }
-//
-//	int getMovesAndCompare() { return this->moveAndCompares; }
-//
-//	void setSize(int val) { this->size = val; }
-//
-//	void setMovesAndCompare(int val) { this->moveAndCompares = val; }
-//
-//	void incrementSize(int increment) { this->size += increment; }
-//
-//	void incrementMovesAndCompare(int increment) { this->moveAndCompares += increment; }
 
+	int getMoveAndCompares() { return this->moveAndCompares; }
+
+	void setMoveAndCompares(int val) { this->moveAndCompares = val; }
 };
