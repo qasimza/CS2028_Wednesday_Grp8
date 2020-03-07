@@ -32,7 +32,9 @@ using namespace std;
 
 void insert(OrderedList<int>* ol, MidOrderedList<int>* mol, BlankOrderedList<int>* bol) {
 	int val = (rand() % 100) + 1;
-	cout << "Added: " << val << endl;
+
+	//cout << "Added: " << val << endl;
+
 	ol->addItem(new int(val));
 	mol->addItem(new int(val));
 	bol->addItem(new int(val));
@@ -41,17 +43,22 @@ void insert(OrderedList<int>* ol, MidOrderedList<int>* mol, BlankOrderedList<int
 void remove(OrderedList<int>* ol, MidOrderedList<int>* mol, BlankOrderedList<int>* bol) {
 	int rem = rand() % ol->getSize();
 	//int rem = 0;
-	cout << endl;
+
+	/*cout << endl;
 	cout<<"Removed from OL: "<< *(ol->removeItem(rem))<<endl;
 	cout << "Removed from MOL: " << *(mol->removeItem(rem)) << endl;
-	cout << "Removed from BOL: " << *(bol->removeItem(rem)) << endl;
+	cout << "Removed from BOL: " << *(bol->removeItem(rem)) << endl;*/
+
+	ol->removeItem(rem);
+	mol->removeItem(rem);
+	bol->removeItem(rem);
 }
 
 int main() {
 
 	int loopTimes = 10;
 	int insertRemoveCount = 100;
-	int size = 100;
+	int size = 1000;
 	long seed = 123456789;  // Seeded so that it is easier to recreate experiment
 	srand(seed);
 
@@ -103,11 +110,15 @@ int main() {
 		molCount += mol->getMoveAndCompares();
 		bolCount += bol->getMoveAndCompares();
 
-		cout << "TEMP RESULTS" << endl;
-		cout << "OL Moves and compares average: " << (float)olCount << endl;
-		cout << "MOL Moves and compares average: " << (float)molCount<< endl;
-		cout << "BOL Moves and compares average: " << (float)bolCount<< endl;
-		cout << endl;
+		//cout << "TEMP RESULTS" << endl;
+		//cout << "OL Moves and compares average: " << (float)olCount << endl;
+		//cout << "MOL Moves and compares average: " << (float)molCount<< endl;
+		//cout << "BOL Moves and compares average: " << (float)bolCount<< endl;
+		//cout << endl;
+
+		ol->makeEmpty();
+		mol->makeEmpty();
+		bol->makeEmpty();
 
 		delete ol;
 		delete mol;

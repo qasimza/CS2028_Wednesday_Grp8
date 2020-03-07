@@ -154,7 +154,7 @@ public:
 
 			if ((this->data[i]) != nullptr) {
 				
-				cout << *(this->data[i])<< " : "<<i<<" - ";
+				//cout << *(this->data[i])<< " : "<<i<<" - ";
 				count++;
 
 				if (count - 1 == ind)
