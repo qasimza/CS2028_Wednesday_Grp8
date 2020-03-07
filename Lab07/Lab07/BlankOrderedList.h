@@ -31,7 +31,7 @@ public:
 		if (this->size == 0) {
 			this->data[(this->maxSize / 2) - 1] = d;
 			this->size++;
-			cout << *d << " added to index pos: " << ((this->maxSize / 2) - 1) << endl;
+			//cout << *d << " added to index pos: " << ((this->maxSize / 2) - 1) << endl;
 			return;
 		}
 
@@ -50,6 +50,16 @@ public:
 
 			if (this->data[counter] != nullptr) {
 
+				//	Logic if item being added is the largest item so far
+				this->moveAndCompares + 2;
+				if (counted == this->size && !isReached) {
+					this->data[lowerBound + (((this->maxSize - 1) - lowerBound) / 2)] = d;
+					isReached = true;
+					this->size++;
+					return;
+					//cout << *d << " added to index pos: " << lowerBound + (((this->maxSize - 1) - lowerBound) / 2) << endl;
+				}
+
 				this->moveAndCompares++;
 				if (*d <= *this->data[counter]) {
 
@@ -61,7 +71,8 @@ public:
 							this->data[lowerBound + (diff / 2)] = d;
 							isReached = true;
 							this->size++;
-							cout << *d << " added to index pos: " << lowerBound + (diff / 2) << endl;
+							return;
+							//cout << *d << " added to index pos: " << lowerBound + (diff / 2) << endl;
 						}
 
 						else {
@@ -84,21 +95,39 @@ public:
 							this->data[counter] = d;
 							isReached = true;
 							this->size++;
-							cout << *d << " added to index pos: " << counter << endl;
+							return;
+							//cout << *d << " added to index pos: " << counter << endl;
 						}
+				}
+				else {
+
+					//Logic to shift everything to the left if end of array is reached
+					if (counter == this->maxSize - 1) {
+						upperMoveBound = counter;
+						//	Logic to detect upto which point to shift everything over (Until an emtpy spot is encoutered)
+						lowerBound = counter - 1;
+						for (int i = counter - 1; i >= 0; i--) {
+							this->moveAndCompares++;
+							if (this->data[i] == nullptr) {
+								break;
+							}
+							lowerBound--;
+						}
+
+						//  Shift everything upto an empty spot
+						for (int i = (lowerBound + 1); i < upperMoveBound; i++) {
+							this->data[i - 1] = this->data[i];
+							this->moveAndCompares + 2;
+						}
+						this->data[counter] = d;
+						isReached = true;
+						this->size++;
+						return;
+						//cout << *d << " added to index pos: " << counter << endl;
+					}
 				}
 				lowerBound = counter;
 				counted++;
-
-			//	Logic if item being added is the largest item
-				this->moveAndCompares + 2;
-				if (counted == this->size && !isReached) {
-					this->data[lowerBound + (((this->maxSize - 1) - lowerBound) / 2)] = d;
-					isReached = true;
-					this->size++;
-					cout << *d << " added to index pos: " << lowerBound + (((this->maxSize - 1) - lowerBound) / 2) << endl;
-				}
-				
 
 			}
 			
@@ -112,14 +141,38 @@ public:
 			throw ListEmpty();
 		}
 
-		if (ind < 0 || ind > this->maxSize) {
+		if (ind < 0 || ind > this->size) {
 			throw OutOfBoundsIndex();
 		}
 
-		T* ans = this->data[ind];
-		this->data[ind] = nullptr;
-		this->size--;
+		int count = 0;
+		int requiredIndex = 0;
 
+		for (int i = 0; i < this->maxSize; i++) {
+			this->moveAndCompares++;
+			requiredIndex = i;
+
+			if ((this->data[i]) != nullptr) {
+				
+				cout << *(this->data[i])<< " : "<<i<<" - ";
+				count++;
+
+				if (count - 1 == ind)
+					break;
+
+			}
+		}
+
+		cout << endl;
+
+		T* ans = this->data[requiredIndex];
+		this->data[requiredIndex] = nullptr;
+
+		if (ans == nullptr) {
+			cout << "something wrong here: Index: " <<ind << " :requiredIndex: "<<requiredIndex<<": count : "<<count<<": current Size: "<<this->size<< endl;
+		}
+
+		this->size--;
 		return ans;
 	}
 

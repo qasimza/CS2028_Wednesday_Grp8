@@ -41,7 +41,6 @@ public:
 	}
 
 	void addItem(T *d) {
-
 		this->moveAndCompares++;
 		if (this->size == 0) {
 			this->data[0] = d;
@@ -117,6 +116,10 @@ public:
 		}
 		this->size = 0;
 	}
+
+	int getSize() { return this->size; }
+
+	int getMaxSize() { return this->maxSize; }
 
 	int getMoveAndCompares() { return this->moveAndCompares; }
 
