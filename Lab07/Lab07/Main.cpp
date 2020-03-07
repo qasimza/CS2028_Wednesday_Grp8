@@ -39,8 +39,8 @@ void insert(OrderedList<int>* ol, MidOrderedList<int>* mol, BlankOrderedList<int
 }
 
 void remove(OrderedList<int>* ol, MidOrderedList<int>* mol, BlankOrderedList<int>* bol) {
-	//int rem = rand() % ol->getSize();
-	int rem = 0;
+	int rem = rand() % ol->getSize();
+	//int rem = 0;
 	cout << endl;
 	cout<<"Removed from OL: "<< *(ol->removeItem(rem))<<endl;
 	cout << "Removed from MOL: " << *(mol->removeItem(rem)) << endl;
