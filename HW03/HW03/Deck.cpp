@@ -51,5 +51,7 @@ int Deck::pop()
 //  Peek
 int Deck::peek()
 {
+	if (top == nullptr)
+		throw Underflow();
     return top->value;
 }

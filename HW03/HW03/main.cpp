@@ -36,6 +36,7 @@ string getCardNum(int);
 int main()
 {
     // Seed Random
+	//srand(420);
     srand(static_cast<unsigned int>(time(0)));
 
     // Initialize Game Deck Arrays
@@ -46,13 +47,14 @@ int main()
     int baseArray[WHOLE_DECK] = {2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
                                  2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
                                  2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
-                                 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14};
+                                 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14}; 
 
 	/* Test Deck
 		Add this line to and comment the above baseArray for testing
 		WHOLE_DECK should also be modified for an appropriate size
-	*/
-	//int baseArray[WHOLE_DECK] = {2, 3, 4};
+	
+	int baseArray[WHOLE_DECK] = {2, 3, 4,
+								2, 3, 4};*/
 
     // Randomly Shuffle Base Deck Array
     shuffleDeck(baseArray, WHOLE_DECK);
@@ -95,13 +97,13 @@ Enter an option: ";
 	Player *player = new Player{nameStr, playerDeck, playerSide, 0};
 	Player *computer = new Player{"Computer", computerDeck, computerSide, 0};
 	
-
-
-    do{
+	while (totalRounds != numRounds) {
 		player->updateTotalCards();
 		computer->updateTotalCards();
+		if (player->totalCards == 0 || computer->totalCards == 0)
+			break;
 		totalRounds = playOneRound(player, computer, totalRounds);
-	} while (player->totalCards > 0 && computer->totalCards > 0 && totalRounds != numRounds);
+	}
 	
 	//Final values
 	player->updateTotalCards();
@@ -307,13 +309,16 @@ Enter Choice: ";
 			player->deck.push(computerDraw);
 			if(sideCard != -1)
 				player->deck.push(sideCard);
-
+			cout << THIN_LINE;
+			cout << "This Round's winner: " << player->playerName << endl;
 		}
 		else {
 			computer->deck.push(computerDraw);
 			computer->deck.push(playerDraw);
 			if(sideCard != -1)
 				computer->deck.push(sideCard);
+			cout << THIN_LINE;
+			cout << "This Round's winner: " << computer->playerName << endl;
 		}
 		return ++totalRounds;	
 	}
