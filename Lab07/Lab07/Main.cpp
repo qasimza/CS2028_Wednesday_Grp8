@@ -27,6 +27,7 @@ f.	Every insert/remove operation should be identically performed against all 3 o
 #include "MidOrderedList.h"
 #include "BlankOrderedList.h"
 #include <cmath>
+#include <stdlib.h>
 
 using namespace std;
 
@@ -40,25 +41,31 @@ void insert(OrderedList<int>* ol, MidOrderedList<int>* mol, BlankOrderedList<int
 	bol->addItem(new int(val));
 }
 
-void remove(OrderedList<int>* ol, MidOrderedList<int>* mol, BlankOrderedList<int>* bol) {
-	int rem = rand() % ol->getSize();
-	//int rem = 0;
+void remove(OrderedList<int>* ol, MidOrderedList<int>* mol, BlankOrderedList<int>* bol,bool shouldDisplay) {
+	//int rem = rand() % ol->getSize();
+	int rem = 0;
 
-	/*cout << endl;
-	cout<<"Removed from OL: "<< *(ol->removeItem(rem))<<endl;
-	cout << "Removed from MOL: " << *(mol->removeItem(rem)) << endl;
-	cout << "Removed from BOL: " << *(bol->removeItem(rem)) << endl;*/
+	//cout << endl;
+	/*cout<<"Removed from OL: "<< *(ol->removeItem(rem))<<endl;
+	cout << "Removed from MOL: " << *(mol->removeItem(rem)) << endl;*/
+	//cout << "Removed from BOL: " << *(bol->removeItem(rem)) << endl;
+
+
+	//if (shouldDisplay) {
+	//	cout << "Index to be removed: " << rem << endl;
+	//}
 
 	ol->removeItem(rem);
 	mol->removeItem(rem);
-	bol->removeItem(rem);
+	bol->removeItem(rem, shouldDisplay);
+	//cout << *bol->removeItem(rem) << endl;
 }
 
 int main() {
 
-	int loopTimes = 10;
-	int insertRemoveCount = 100;
-	int size = 1000;
+	int loopTimes = 100;
+	int insertRemoveCount = 25;
+	int size = 25;
 	long seed = 123456789;  // Seeded so that it is easier to recreate experiment
 	srand(seed);
 
@@ -73,12 +80,12 @@ int main() {
 	MidOrderedList<int>* mol;
 	BlankOrderedList<int>* bol;
 
+	ol = new OrderedList<int>(size);
+	mol = new MidOrderedList<int>(size);
+	bol = new BlankOrderedList<int>(size);
+
 	for (int i = 0; i < loopTimes; i++) {
-
-		ol = new OrderedList<int>(size);
-		mol = new MidOrderedList<int>(size);
-		bol = new BlankOrderedList<int>(size);
-
+		srand(seed);
 		int insertionCount = 0;
 		int removeCount = 0;
 
@@ -87,6 +94,10 @@ int main() {
 			if (insertionCount == 0) {
 				insert(ol, mol, bol);
 				insertionCount++;
+				if (i == loopTimes - 1) {
+					//cout << "First add" << endl;
+					//bol->printEverything();
+				}
 			}
 
 			else {
@@ -94,12 +105,26 @@ int main() {
 					if (insertionCount < insertRemoveCount && ol->getSize() != ol->getMaxSize()) {
 						insert(ol, mol, bol);
 						insertionCount++;
+
+						if (i == loopTimes - 1) {
+							//cout << "add" << endl;
+							//bol->printEverything();
+						}
 					}
 				}
 				else {
 					if (removeCount < insertRemoveCount && mol->getSize() != 0) {
-						remove(ol, mol, bol);
-						removeCount++;
+						
+						if (i == loopTimes - 1) {
+							//cout << "remove" << endl;
+							remove(ol, mol, bol, false);
+							removeCount++;
+							//bol->printEverything();
+						}
+						else {
+							remove(ol, mol, bol, false);
+							removeCount++;
+						}
 					}
 				}
 			}
@@ -116,13 +141,10 @@ int main() {
 		//cout << "BOL Moves and compares average: " << (float)bolCount<< endl;
 		//cout << endl;
 
+		// These 
 		ol->makeEmpty();
 		mol->makeEmpty();
 		bol->makeEmpty();
-
-		delete ol;
-		delete mol;
-		delete bol;
 	}
 
 	//	Print results
@@ -134,3 +156,31 @@ int main() {
 	cout << endl;
 
 }
+
+//int main() {
+//
+//	int size = 10;
+//	BlankOrderedList<int>* ol = new BlankOrderedList<int>(size);
+//	/*for (int i = size - 1; i >=0; i--) {
+//		ol->addItem(new int(i));
+//	}*/
+//
+//	ol->addItem(new int(2));
+//	ol->addItem(new int(7));
+//	ol->addItem(new int(3));
+//	ol->addItem(new int(0));
+//	ol->addItem(new int(1));
+//	ol->addItem(new int(9));
+//	ol->addItem(new int(11));
+//	ol->addItem(new int(-3));
+//	ol->addItem(new int(12));
+//	ol->addItem(new int(-4));
+//
+//	//for (int i = size - 1; i >= 2; i--) {
+//	//	ol->removeItem(i);
+//	//	ol->printEverything();
+//	//}
+//
+//	//ol->addItem(new int(-1));
+//	ol->printEverything();
+//}
