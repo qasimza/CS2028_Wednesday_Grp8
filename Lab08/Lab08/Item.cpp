@@ -21,10 +21,19 @@ Complete this before moving on to task 3.
 */
 
 #include "Item.h"
+#include <iostream>
 #include <string>
 using namespace std;
 
-Item::Item(int SKU, string description, double price, string UOM, int quantityOnHand = 0, int leadTime = 0)
+Item::Item(int SKU, string description, double price, string UOM)
+{
+	this->SKU = SKU;
+	this->description = description;
+	this->price = price;
+	this->UOM = UOM;
+}
+
+Item::Item(int SKU, string description, double price, string UOM, int quantityOnHand = 0)
 {
 	this->SKU = SKU;
 	this->description = description;
@@ -41,6 +50,12 @@ bool Item::available(Date desiredDate)
 	if (desiredDate - currentDate <= leadTime) return true;
 	return false;
 }
+
+void Item::display()
+{
+	cout << "Placeholder" << endl;
+}
+
 bool Item::operator>(Item other)
 {
 	if (SKU > other.SKU)  return true;

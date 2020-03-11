@@ -60,18 +60,20 @@ class Item
 		string description;
 		double price;
 		string UOM;
-		int quantityOnHand;
-		int leadTime;
+		int quantityOnHand = 0;
+		int leadTime = 0;
 
 	public:
 		Item() {}
-		Item(int, string, double, string, int, int);
+		Item(int, string, double, string);
+		Item(int, string, double, string, int);
 		string getPartInfo() { return to_string(SKU) + " - " + UOM + " - " + description; }
 		double getPrice() { return price; }
 		bool inStock() { return quantityOnHand > 0; }
 		bool available(Date);
 		void setQuantity(int quantityOnHand) { this->quantityOnHand = quantityOnHand; }
 		void setLeadTime(int leadTime) { this->leadTime = leadTime; }
+		void display();
 		bool operator>(Item other);
 		bool operator<(Item other);
 		bool operator==(Item other);

@@ -63,7 +63,7 @@ int main() {
 				break;
 			}
 			case 10: {
-				list->display();
+				list->printList();
 				break;
 			}
 			case 9: {
@@ -80,14 +80,14 @@ int main() {
 			}
 			case 7: {
 				cout << "Previous item: " << endl;
-				Item* ret = list->seePrev();
-				ret->disply();
+				Item* ret = &list->seePrev();
+				ret->display();
 				cout << line << endl;
 				break;
 			}
 			case 6: {
 				cout << "Next item: " << endl;
-				Item* ret = list->seeNext();
+				Item* ret = &list->seeNext();
 				ret->display();
 				cout << line << endl;
 				break;
@@ -111,8 +111,8 @@ int main() {
 				int SKU = -1;
 				cout << "Enter the value of SKU: ";
 				cin >> SKU;
-				Item* item = new Item(SKU, "", 0.0, "")
-				if (list->isInsList(item)) {
+				Item* item = new Item(SKU, "", 0.0, "");
+				if (list->isInList(item)) {
 					cout << "Item is in list" << endl;
 				}
 				else {
@@ -166,7 +166,7 @@ int main() {
 			}
 			case 0: {
 				delete list;
-				list = new ODLinkedList();
+				list = new ODLinkedList<Item>();
 				cout << "New list created" << endl;
 				cout << line << endl;
 				break;
