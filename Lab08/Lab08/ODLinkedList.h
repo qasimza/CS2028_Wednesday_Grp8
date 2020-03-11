@@ -1,4 +1,8 @@
 #pragma once
+#include <iostream>
+#include <string>
+using namespace std;
+
 /*
 Task 1:  Create an ordered double linked list class.
 1.   Create a new project.  You can name this whatever you like.
@@ -33,17 +37,175 @@ c.   Make sure you don’t have any memory leaks.
 Complete this before moving on to task 2.
 */
 
+
+
+template <class T>
+class Node {
+public:
+	T value;
+	Node<T> *next;
+	Node<T> *prev;
+	//Constructor
+	Node<T>(T newValue) {
+		value = newValue;
+		prev = nullptr;
+		next = nullptr;
+	}
+};
+
 template <class T>
 class ODLinkedList{
 private:
-	T* head;
+	Node<T> *head;
+	Node<T> *curr;
+	int len; //Number of items
 public:
 	//Constructor
-	ODLinkedList(T);
-	//AddItem – adds an item from the list
-	void addItem(T);
-	//GetItem – searches the list for the given item.  If found, it removes it from the list and returns it
-	T geteItem(T);
+	ODLinkedList() {
+		head = nullptr;
+		curr = nullptr;
+		len = 0;
+	}
+	//Oprator overloads
 
 
+	//Exceptions
+	class ListUnderFlow {};
+	class OutOfBounds {};
+	class NonUniqueKey {};
+	//Other functions
+
+	void addItem(T *item) {
+		Node<T>* newNode = new Node<T>(*item);
+		if (head == nullptr) { //Adding when there are no items
+			head = newNode;
+			curr = newNode;
+		}
+		else if (newNode->value < head->value) { // If adding at the beginning of the list
+			newNode->next = head;
+			head->prev = newNode;
+			head = newNode;
+		}
+		else { // Look for position to add the pointer at
+			Node<T> *position = head;
+			while (position->next != nullptr && newNode->value > position->value) {
+				position = position->next;
+			}
+			if (newNode->value > position->value) { //Adding at the end
+				newNode->prev = position;
+				newNode->next = position->next;
+				position->next = newNode;
+			}
+			else {	//Adding in the middle
+				newNode->next = position;
+				newNode->prev = position->prev;
+				position->prev = newNode;
+				newNode->prev->next = newNode;
+			}
+			
+		}			
+		len++; //Increment size after successful addition
+		}
+		
+	
+	T* getItem(T* item) {
+		T *returnItem = nullptr;
+		Node<T>* position = head;
+
+		if (head->value == *item) { //If item is at the beginning
+			returnItem = &head->value;
+			head = head->next;
+			delete position;
+			len--;
+		}
+		else if (head != nullptr){ //If list is not-empty
+			for (int i = 0; i < len; i++) {
+				if (position->value == *item) {
+					returnItem = &position->value;
+					position->prev->next = position->next;
+					if (position->next != nullptr) position->next->prev = position->prev;
+					delete position;
+					len--;
+					break;
+				}
+				position = position->next;
+			}
+		}
+		return returnItem;
+		
+	}
+	
+	bool isInList(T* item) {
+		Node<T>* position = head;
+		for (int i = 0; i < len; i++) {
+			if (position->value == *item) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	bool isEmpty() { return head == nullptr; };
+	int size() { return len; };
+	void reset() { curr = head->next; };
+	
+	~ODLinkedList(){
+
+	}
+
+	T seeNext() {
+		
+		if(len == 0) {
+			throw ListUnderFlow();
+		}
+
+		if(curr == nullptr) {
+			return nullptr;
+		}
+		curr = curr->next;
+		return curr;
+	}
+
+	T seePrev() {
+		
+		if(len == 0) {
+			throw ListUnderFlow();
+		}
+
+		if(curr == nullptr) {
+			return nullptr;
+		}
+
+		curr = curr->previous;
+		return curr;
+	}
+
+	T seeAt(int location)
+	{
+		if(location > (len - 1) || location < 0) throw OutOfBounds();
+		
+		Node<T>* iterator = head;
+		while(location != 0)
+		{
+			iterator = iterator->next;
+			location--;
+		}
+		return iterator->value;
+	}
+
+	//Function for printing list
+	void printList() {
+		
+		if (isEmpty()) {
+			cout << "Empty List" << endl;
+		}
+		else {
+			Node<T>* position = head;
+			for (int i = 0; i < len; i++) {
+				cout << position->value << " ";
+				position = position->next;
+			}
+		}
+	}
 };
+
