@@ -63,7 +63,7 @@ int main() {
 				break;
 			}
 			case 10: {
-				list->printList();
+				//list->printList();
 				break;
 			}
 			case 9: {
@@ -80,14 +80,14 @@ int main() {
 			}
 			case 7: {
 				cout << "Previous item: " << endl;
-				Item* ret = &list->seePrev();
+				Item* ret = list->seePrev();
 				ret->display();
 				cout << line << endl;
 				break;
 			}
 			case 6: {
 				cout << "Next item: " << endl;
-				Item* ret = &list->seeNext();
+				Item* ret = list->seeNext();
 				ret->display();
 				cout << line << endl;
 				break;
@@ -136,6 +136,7 @@ int main() {
 
 				string description;
 				cout << "Enter a description: ";
+				cin.ignore();
 				getline(cin,description);
 
 				double price = -1;

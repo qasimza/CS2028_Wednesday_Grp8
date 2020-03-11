@@ -153,7 +153,7 @@ public:
 
 	}
 
-	T seeNext() {
+	T* seeNext() {
 		
 		if(len == 0) {
 			throw ListUnderFlow();
@@ -163,10 +163,10 @@ public:
 			return nullptr;
 		}
 		curr = curr->next;
-		return curr;
+		return &curr->value;
 	}
 
-	T seePrev() {
+	T* seePrev() {
 		
 		if(len == 0) {
 			throw ListUnderFlow();
@@ -176,8 +176,8 @@ public:
 			return nullptr;
 		}
 
-		curr = curr->previous;
-		return curr;
+		curr = curr->prev;
+		return &curr->value;
 	}
 
 	T seeAt(int location)
