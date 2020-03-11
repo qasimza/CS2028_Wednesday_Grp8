@@ -72,9 +72,9 @@ int main() {
 			}
 			case 8: {
 				int tempOption = -1;
-				cout << "Enter index position: " << endl;
-				cout << line << endl;
+				cout << "Enter index position: ";
 				cin >> tempOption;
+				cout << line << endl;
 				list->seeAt(tempOption);
 				break;
 			}
@@ -93,7 +93,7 @@ int main() {
 				break;
 			}
 			case 5: {
-				//cout<<"Current list size: "<<list.size()<<endl;
+				cout<<"Current list size: " << list->size() << endl;
 				cout << line << endl;
 				break;
 			}

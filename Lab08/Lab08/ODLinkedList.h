@@ -145,9 +145,9 @@ public:
 		return false;
 	}
 
-	bool isEmpty() { return head == nullptr; };
-	int size() { return len; };
-	void reset() { curr = head->next; };
+	bool isEmpty() { return head == nullptr; }
+	int size() { return len; }
+	void reset() { curr = head; }
 	
 	~ODLinkedList(){
 
