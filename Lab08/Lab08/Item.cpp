@@ -21,3 +21,46 @@ Complete this before moving on to task 3.
 */
 
 #include "Item.h"
+#include <string>
+using namespace std;
+
+Item::Item(int SKU, string description, double price, string UOM, int quantityOnHand = 0, int leadTime = 0)
+{
+	this->SKU = SKU;
+	this->description = description;
+	this->price = price;
+	this->UOM = UOM;
+	this->quantityOnHand = quantityOnHand;
+	this->leadTime = leadTime;
+}
+
+bool Item::available(Date desiredDate)
+{
+	if (inStock()) return true;
+	Date currentDate;
+	if (desiredDate - currentDate <= leadTime) return true;
+	return false;
+}
+bool Item::operator>(Item other)
+{
+	if (SKU > other.SKU)  return true;
+	return false;
+}
+
+bool Item::operator<(Item other)
+{
+	if (SKU < other.SKU)  return true;
+	return false;
+}
+
+bool Item::operator==(Item other)
+{
+	if (SKU = other.SKU) return true;
+	return false;
+}
+
+bool Item::operator<=(Item other)
+{
+	if (SKU <= other.SKU)  return true;
+	return false;
+}

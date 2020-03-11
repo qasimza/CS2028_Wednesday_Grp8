@@ -21,7 +21,60 @@ Task 2:  Create a class to be used as the item stored in the list.  This class w
 Complete this before moving on to task 3.
 */
 
-class Item
+#include <string>
+#include <ctime>
+using namespace std;
+
+struct Date
 {
+		int year = 2020;
+		int month = 1;
+		int day = 1;
+
+		Date()
+		{
+			struct tm newtime;
+			time_t now = time(0);
+			localtime_s(&newtime, &now);
+
+			this->year = newtime.tm_year + 1900;
+			this->month = newtime.tm_mon + 1;
+			this->day = newtime.tm_mday;
+		}
+
+		Date(int year, int month, int day) { this->year = year; this->month = month; this->day = day; }
+
+		int operator-(Date other)
+		{
+			int result;
+			result = (365 * (other.year - year)) + (30 * (other.month - month)) + (other.day - day);
+			if (result < 0) return 0;
+			return result;
+		}
 };
 
+class Item
+{
+	private:
+		int SKU;
+		string description;
+		double price;
+		string UOM;
+		int quantityOnHand;
+		int leadTime;
+
+	public:
+		Item() {}
+		Item(int, string, double, string, int, int);
+		string getPartInfo() { return to_string(SKU) + " - " + UOM + " - " + description; }
+		double getPrice() { return price; }
+		bool inStock() { return quantityOnHand > 0; }
+		bool available(Date);
+		void setQuantity(int quantityOnHand) { this->quantityOnHand = quantityOnHand; }
+		void setLeadTime(int leadTime) { this->leadTime = leadTime; }
+		bool operator>(Item other);
+		bool operator<(Item other);
+		bool operator==(Item other);
+		bool operator<=(Item other);
+
+};
