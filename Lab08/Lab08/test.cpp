@@ -108,7 +108,10 @@ int main() {
 				break;
 			}
 			case 3: {
-				Item* item = new Item();
+				int SKU = -1;
+				cout << "Enter the value of SKU: ";
+				cin >> SKU;
+				Item* item = new Item(SKU, "", 0.0, "")
 				if (list->isInsList(item)) {
 					cout << "Item is in list" << endl;
 				}
@@ -122,7 +125,7 @@ int main() {
 				int SKU = -1;
 				cout << "Enter the value of SKU: ";
 				cin >> SKU;
-				list->getItem(new Item(SKU,"",0,""));
+				list->getItem(new Item(SKU,"",0.0,""));
 				cout << line << endl;
 				break;
 			}
@@ -135,7 +138,7 @@ int main() {
 				cout << "Enter a description: ";
 				getline(cin,description);
 
-				int price = -1;
+				double price = -1;
 				cout << "Enter the price: ";
 				cin >> price;
 
