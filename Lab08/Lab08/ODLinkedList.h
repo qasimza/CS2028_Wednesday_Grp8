@@ -32,3 +32,18 @@ b.   All items passed to or from the class should be done so via a pointer rathe
 c.   Make sure you don’t have any memory leaks.
 Complete this before moving on to task 2.
 */
+
+template <class T>
+class ODLinkedList{
+private:
+	T* head;
+public:
+	//Constructor
+	ODLinkedList(T);
+	//AddItem – adds an item from the list
+	void addItem(T);
+	//GetItem – searches the list for the given item.  If found, it removes it from the list and returns it
+	T geteItem(T);
+
+
+};
