@@ -140,7 +140,13 @@ int main() {
 				int SKU = -1;
 				cout << "Enter the value of SKU: ";
 				cin >> SKU;
-				list->getItem(new Item(SKU,"",0.0,""));
+				Item* item = list->getItem(new Item(SKU, "", 0.0, ""));
+				if (item == nullptr) {
+					cout << "ERROR: Item Not Found" << endl;
+				}
+				else {
+					item->display();
+				}
 				cout << line << endl;
 				break;
 			}

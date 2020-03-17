@@ -55,35 +55,46 @@ bool Item::available(Date desiredDate)
 
 void Item::display()
 {
-
-	cout << "|                    ITEM INFORMATION                     |" << endl;
+	cout << "+--------------------------------------------------------+\n";
+	cout << "|                    ITEM INFORMATION                    |" << endl;
 	stringstream ss(getPartInfo());
 	string info;
 	string partInfoCat[3] = {"Stock Keeping Number(SKU)", "Description", "Unit of Measurement (UOM)" };
 	for (int i = 0; i < 3; i++) {
-		ss >> info;
-		cout << "| " << setw(28) << left << partInfoCat[i] << ": " << info << setw(28 - info.length()) << right << "|\n";
+		getline(ss, info, '!');
+		cout << "| " << setw(28) << left << partInfoCat[i] << ": " << info << setw(27 - info.length()) << right << "|\n";
 	}
 	string price = to_string(getPrice());
 	price = price.substr(0, price.find('.') + 3);
-	cout << "| " << setw(28) << left << "Price" << ": $" << price << setw(27 - price.length()) << right << "|\n";
+	cout << "| " << setw(28) << left << "Price" << ": $" << price << setw(26 - price.length()) << right << "|\n";
+	if (inStock()) {
+		cout << "| " << setw(28) << left << "Quantity on Hand" << ": " << quantityOnHand << setw(27 - (to_string(quantityOnHand)).length()) << right << "|\n";
+	}
+	else {
+		cout << "| " << setw(28) << left << "Lead Time(OUT OF STOCK)" << ": " << leadTime << setw(27 - (to_string(leadTime)).length()) << right << "|\n";
+	}
+	cout << "+--------------------------------------------------------+\n";
 }
 
 bool Item::operator>(Item other) {
+	if (this == nullptr) return false;
 	return SKU > other.SKU;
 }
 
 bool Item::operator<(Item other)
 {
+	if (this == nullptr) return false;
 	return SKU < other.SKU;
 }
 
 bool Item::operator==(Item other)
 {
+	if (this == nullptr) return false;
 	return SKU == other.SKU;
 }
 
 bool Item::operator<=(Item other)
 {
+	if (this == nullptr) return false;
 	return SKU <= other.SKU;
 }

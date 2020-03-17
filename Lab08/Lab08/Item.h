@@ -67,7 +67,7 @@ class Item
 		Item() {}
 		Item(int, string, double, string);
 		Item(int, string, double, string, int);
-		string getPartInfo() { return to_string(SKU) + " " + description + " " + UOM; }
+		string getPartInfo() { return to_string(SKU) + "!" + description + "!" + UOM; }
 		double getPrice() { return price; }
 		bool inStock() { return quantityOnHand > 0; }
 		bool available(Date);

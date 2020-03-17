@@ -169,16 +169,15 @@ public:
 		Node<T>* position = head;
 
 		if (head->value == *item) { //If item is at the beginning
-			returnItem = &head->value;
+			returnItem = new T(head->value);
 			head = head->next;
-			head->prev = nullptr;
 			delete position;
 			len--;
 		}
 		else if (head != nullptr){ //If list is not-empty
 			for (int i = 0; i < len; i++) {
 				if (position->value == *item) {
-					returnItem = &position->value;
+					returnItem = new T(position->value);
 					position->prev->next = position->next;
 					if (position->next != nullptr) position->next->prev = position->prev;
 					delete position;
@@ -224,6 +223,7 @@ public:
 				return nullptr;
 			}
 		}
+
 		T* retVal = &curr->value; //Makes sure we are returning the current value instead of next value
 
 		prev = curr->prev;
@@ -289,7 +289,6 @@ public:
 			for (int i = 0; i < len; i++) {
 				position->value.display();
 				position = position->next;
-				cout << "-----------------------------------------------------------\n";
 			}
 		}
 		cout << "END OF LIST\n";
