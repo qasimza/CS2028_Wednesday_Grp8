@@ -1,2 +1,61 @@
 ﻿  test.cpp
-  Lab08.vcxproj -> C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Debug\Lab08.exe
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\ODLinkedList.h(234,2): error C2143: syntax error: missing ';' before 'identifier'
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\ODLinkedList.h(229,8): error C2059: syntax error: '='
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\ODLinkedList.h(234): message : see reference to class template instantiation 'ODLinkedList<T>' being compiled
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\ODLinkedList.h(229,1): error C2238: unexpected token(s) preceding ';'
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\ODLinkedList.h(230,8): error C2059: syntax error: '='
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\ODLinkedList.h(230,1): error C2238: unexpected token(s) preceding ';'
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\ODLinkedList.h(231,1): error C2059: syntax error: 'return'
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\ODLinkedList.h(231,1): error C2238: unexpected token(s) preceding ';'
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\ODLinkedList.h(234,3): error C2143: syntax error: missing ';' before '*'
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\ODLinkedList.h(234,3): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\ODLinkedList.h(234,15): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\ODLinkedList.h(234,15): error C2059: syntax error: '{'
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\ODLinkedList.h(234,15): error C2143: syntax error: missing ';' before '{'
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\ODLinkedList.h(234,15): error C2447: '{': missing function header (old-style formal list?)
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\ODLinkedList.h(254,9): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\ODLinkedList.h(254,9): error C2086: 'int T': redefinition
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\ODLinkedList.h(234): message : see declaration of 'T'
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\ODLinkedList.h(254,4): error C2146: syntax error: missing ';' before identifier 'seeAt'
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\ODLinkedList.h(255,2): error C2143: syntax error: missing ';' before '{'
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\ODLinkedList.h(255,2): error C2447: '{': missing function header (old-style formal list?)
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\ODLinkedList.h(268,15): error C2588: '::~ODLinkedList': illegal global destructor
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\ODLinkedList.h(268,18): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\ODLinkedList.h(269,3): error C2923: 'Node': 'T' is not a valid template type argument for parameter 'T'
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\ODLinkedList.h(234): message : see declaration of 'T'
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\ODLinkedList.h(269,19): error C2065: 'head': undeclared identifier
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\ODLinkedList.h(270,23): error C2065: 'len': undeclared identifier
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\ODLinkedList.h(271,4): error C2065: 'head': undeclared identifier
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\ODLinkedList.h(271,11): error C2065: 'head': undeclared identifier
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\ODLinkedList.h(272,4): error C2065: 'head': undeclared identifier
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\ODLinkedList.h(274,11): error C2065: 'head': undeclared identifier
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\ODLinkedList.h(275,4): error C2065: 'len': undeclared identifier
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\ODLinkedList.h(277,3): error C2065: 'head': undeclared identifier
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\ODLinkedList.h(278,2): warning C4508: 'ODLinkedList': function should return a value; 'void' return type assumed
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\ODLinkedList.h(284,7): error C3861: 'isEmpty': identifier not found
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\ODLinkedList.h(288,4): error C2923: 'Node': 'T' is not a valid template type argument for parameter 'T'
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\ODLinkedList.h(234): message : see declaration of 'T'
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\ODLinkedList.h(288,24): error C2065: 'head': undeclared identifier
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\ODLinkedList.h(289,24): error C2065: 'len': undeclared identifier
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\ODLinkedList.h(291,30): error C2440: '=': cannot convert from 'Node<T> *' to 'Node *'
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\ODLinkedList.h(291,24): message : Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\ODLinkedList.h(298,1): error C2059: syntax error: '}'
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\ODLinkedList.h(298,1): error C2143: syntax error: missing ';' before '}'
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\test.cpp(39,19): error C2275: 'Item': illegal use of this type as an expression
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\Item.h(56): message : see declaration of 'Item'
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\test.cpp(39,22): error C2065: 'list': undeclared identifier
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\test.cpp(39,45): error C2061: syntax error: identifier 'ODLinkedList'
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\test.cpp(66,5): error C2065: 'list': undeclared identifier
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\test.cpp(70,5): error C2065: 'list': undeclared identifier
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\test.cpp(78,5): error C2065: 'list': undeclared identifier
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\test.cpp(83,17): error C2065: 'list': undeclared identifier
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\test.cpp(97,17): error C2065: 'list': undeclared identifier
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\test.cpp(110,36): error C2065: 'list': undeclared identifier
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\test.cpp(115,9): error C2065: 'list': undeclared identifier
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\test.cpp(130,9): error C2065: 'list': undeclared identifier
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\test.cpp(143,5): error C2065: 'list': undeclared identifier
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\test.cpp(178,5): error C2065: 'list': undeclared identifier
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\test.cpp(184,12): error C2065: 'list': undeclared identifier
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\test.cpp(184,16): error C2541: 'delete': cannot delete objects that are not pointers
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\test.cpp(185,5): error C2065: 'list': undeclared identifier
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab08\Lab08\test.cpp(185,28): error C2061: syntax error: identifier 'ODLinkedList'

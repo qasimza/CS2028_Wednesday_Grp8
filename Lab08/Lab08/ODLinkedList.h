@@ -205,7 +205,10 @@ public:
 
 	bool isEmpty() { return head == nullptr; }
 	int size() { return len; }
-	void reset() { curr = head; }
+	void reset() { 
+		curr = head;
+		prev = nullptr;
+	}
 	
 	T* seeNext() {
 		
@@ -213,11 +216,13 @@ public:
 			throw ListUnderFlow();
 		}
 
-		if(curr == nullptr) {
-			if (prev->next != nullptr) {
-				prev = prev->next;
+		if (curr == nullptr) {
+			if (prev != nullptr) {
+				if (prev->next != nullptr) {
+					prev = prev->next;
+				}
+				return nullptr;
 			}
-			return nullptr;
 		}
 		T* retVal = &curr->value; //Makes sure we are returning the current value instead of next value
 
