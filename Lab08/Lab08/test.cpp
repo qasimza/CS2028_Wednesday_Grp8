@@ -81,14 +81,28 @@ int main() {
 			case 7: {
 				cout << "Previous item: " << endl;
 				Item* ret = list->seePrev();
-				ret->display();
+
+				if (ret != nullptr) {
+					ret->display();
+				}
+				else {
+					cout << "Reached end of List" << endl;
+				}
+
 				cout << line << endl;
 				break;
 			}
 			case 6: {
 				cout << "Next item: " << endl;
 				Item* ret = list->seeNext();
-				ret->display();
+
+				if (ret != nullptr) {
+					ret->display();
+				}
+				else {
+					cout << "Reached end of List" << endl;
+				}
+
 				cout << line << endl;
 				break;
 			}
@@ -111,6 +125,7 @@ int main() {
 				int SKU = -1;
 				cout << "Enter the value of SKU: ";
 				cin >> SKU;
+
 				Item* item = new Item(SKU, "", 0.0, "");
 				if (list->isInList(item)) {
 					cout << "Item is in list" << endl;

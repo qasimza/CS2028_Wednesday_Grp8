@@ -113,6 +113,7 @@ class ODLinkedList{
 private:
 	Node<T> *head;
 	Node<T> *curr;
+	Node<T>* prev;
 	int len; //Number of items
 public:
 
@@ -120,6 +121,7 @@ public:
 	ODLinkedList() {
 		head = nullptr;
 		curr = nullptr;
+		prev = nullptr;
 		len = 0;
 	}
 
@@ -212,9 +214,14 @@ public:
 		}
 
 		if(curr == nullptr) {
+			if (prev->next != nullptr) {
+				prev = prev->next;
+			}
 			return nullptr;
 		}
 		T* retVal = &curr->value; //Makes sure we are returning the current value instead of next value
+
+		prev = curr->prev;
 		curr = curr->next;
 		return retVal;
 	}
@@ -225,12 +232,18 @@ public:
 			throw ListUnderFlow();
 		}
 
-		if(curr == nullptr) {
+		if(prev == nullptr) {
+			if (curr->prev != nullptr) {
+				curr = curr->prev;
+			}
 			return nullptr;
 		}
 
-		curr = curr->prev;
-		return &curr->value;
+		T* retVal = &prev->value; //Makes sure we are returning the current value instead of next value
+
+		curr = prev->next;
+		prev = prev->prev;
+		return retVal;
 	}
 
 	T seeAt(int location)

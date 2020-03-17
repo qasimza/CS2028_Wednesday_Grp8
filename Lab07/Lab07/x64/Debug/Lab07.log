@@ -1,0 +1,16 @@
+﻿  Main.cpp
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab07\Lab07\BlankOrderedList.h(55,27): warning C4552: '+': result of expression not used
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab07\Lab07\BlankOrderedList.h(27): message : while compiling class template member function 'void BlankOrderedList<int>::addItem(T *)'
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab07\Lab07\BlankOrderedList.h(27): message :         with
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab07\Lab07\BlankOrderedList.h(27): message :         [
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab07\Lab07\BlankOrderedList.h(27): message :             T=int
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab07\Lab07\BlankOrderedList.h(27): message :         ]
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab07\Lab07\Main.cpp(40): message : see reference to function template instantiation 'void BlankOrderedList<int>::addItem(T *)' being compiled
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab07\Lab07\Main.cpp(40): message :         with
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab07\Lab07\Main.cpp(40): message :         [
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab07\Lab07\Main.cpp(40): message :             T=int
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab07\Lab07\Main.cpp(40): message :         ]
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab07\Lab07\Main.cpp(40): message : see reference to class template instantiation 'BlankOrderedList<int>' being compiled
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab07\Lab07\BlankOrderedList.h(94,30): warning C4552: '+': result of expression not used
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab07\Lab07\BlankOrderedList.h(121,30): warning C4552: '+': result of expression not used
+  Lab07.vcxproj -> C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab07\x64\Debug\Lab07.exe
