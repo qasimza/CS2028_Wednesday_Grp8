@@ -251,7 +251,7 @@ public:
 		return retVal;
 	}
 
-	T seeAt(int location)
+	T* seeAt(int location)
 	{
 		if(location > (len - 1) || location < 0) throw OutOfBounds();
 		
@@ -261,7 +261,7 @@ public:
 			iterator = iterator->next;
 			location--;
 		}
-		return iterator->value;
+		return &iterator->value;
 	}
 
 	//Destructor

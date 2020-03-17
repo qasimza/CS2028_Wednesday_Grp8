@@ -75,7 +75,13 @@ int main() {
 				cout << "Enter index position: ";
 				cin >> tempOption;
 				cout << line << endl;
-				list->seeAt(tempOption);
+				Item* temp = list->seeAt(tempOption);
+				if (temp != nullptr) {
+					temp->display();
+				}
+				else {
+					cout << "Could not retreive item from given index position" << endl;
+				}
 				break;
 			}
 			case 7: {
