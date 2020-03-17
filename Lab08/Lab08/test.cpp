@@ -42,7 +42,7 @@ int main() {
 		int selected = -1;
 		// Get user to select a function or quit program
 		cout << "Please select an option:" << endl;
-		cout << "0 - Call the constructor" << endl;
+		cout << "0 - Create new List" << endl;
 		cout << "1 - Call addItem()" << endl;
 		cout << "2 - Call getItem()" << endl;
 		cout << "3 - Call isInList()" << endl;
@@ -53,7 +53,7 @@ int main() {
 		cout << "8 - Call seeAt()" << endl;
 		cout << "9 - Call reset()" << endl;
 		cout << "10 - Display List" << endl;
-		cout << "11 - quit test program" << endl;
+		cout << "11 - Quit Test Program" << endl;
 		cout << line << endl;
 		cin >> selected;
 
@@ -63,7 +63,7 @@ int main() {
 				break;
 			}
 			case 10: {
-				//list->printList();
+				list->display();
 				break;
 			}
 			case 9: {

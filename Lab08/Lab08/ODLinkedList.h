@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <cctype>
 using namespace std;
 
 /*
@@ -43,36 +44,90 @@ template <class T>
 class Node {
 public:
 	T value;
-	Node<T> *next;
-	Node<T> *prev;
+	Node<T>* next;
+	Node<T>* prev;
+
 	//Constructor
 	Node<T>(T newValue) {
 		value = newValue;
 		prev = nullptr;
 		next = nullptr;
 	}
+
+	//Overloaded operators
+
+	//Overloaded operator for char compares the ascii values of the character
+	bool operator <(const char right) {
+		return int(this->value) < int(right);
+	}
+	bool operator >(const char right) {
+		return int(this->value) > int(right);
+	}
+	bool operator ==(const char right) {
+		return int(this->value) == int(right);
+	}
+	//Overloaded operators for string compare strings in lexicographical order
+	bool operator <(const string right) {
+		string temp = this->value;
+		if (temp.length() > right.length()) { //If left > right swap
+			temp = right;
+			right = this->value;
+		}
+		for (int i = 0; i < temp.length(); i++) {
+			if (tolower(temp[i]) >= tolower(right[i]))
+				return false;
+		}
+		return true;
+	}
+	bool operator >(const string right) {
+		string temp = this->value;
+		if (temp.length() > right.length()) { //If left > right swap
+			temp = right;
+			right = this->value;
+		}
+		for (int i = 0; i < temp.length(); i++) {
+			if (tolower(temp[i]) <= tolower(right[i]))
+				return false;
+		}
+		return true;
+	}
+	bool operator ==(const string right) {
+		string temp = this->value;
+		if (temp.length() != right.length())
+			return false;
+		else if (temp.length() > right.length()) { //If left > right swap
+			temp = right;
+			right = this->value;
+		}
+		for (int i = 0; i < temp.length(); i++) {
+			if (tolower(temp[i]) != tolower(right[i]))
+				return false;
+		}
+		return true;
+	}
 };
 
 template <class T>
 class ODLinkedList{
+
 private:
 	Node<T> *head;
 	Node<T> *curr;
 	int len; //Number of items
 public:
+
 	//Constructor
 	ODLinkedList() {
 		head = nullptr;
 		curr = nullptr;
 		len = 0;
 	}
-	//Oprator overloads
-
 
 	//Exceptions
 	class ListUnderFlow {};
 	class OutOfBounds {};
 	class NonUniqueKey {};
+	
 	//Other functions
 
 	void addItem(T *item) {
@@ -107,7 +162,6 @@ public:
 		len++; //Increment size after successful addition
 		}
 		
-	
 	T* getItem(T* item) {
 		T *returnItem = nullptr;
 		Node<T>* position = head;
@@ -115,6 +169,7 @@ public:
 		if (head->value == *item) { //If item is at the beginning
 			returnItem = &head->value;
 			head = head->next;
+			head->prev = nullptr;
 			delete position;
 			len--;
 		}
@@ -149,10 +204,6 @@ public:
 	int size() { return len; }
 	void reset() { curr = head; }
 	
-	~ODLinkedList(){
-
-	}
-
 	T* seeNext() {
 		
 		if(len == 0) {
@@ -193,19 +244,36 @@ public:
 		return iterator->value;
 	}
 
+	//Destructor
+	~ODLinkedList() {
+		Node<T> *curr = head;
+		for (int i = 0; i < len; i++) {
+			head = head->next;
+			head->prev = nullptr;
+			delete curr;
+			curr = head;
+			len--;
+		}
+		head = nullptr;
+	}
+
 	//Function for printing list
-	void printList() {
-		
+	void display() {
+		cout << "LIST CONTENTS: \n";
+		cout << "===========================================================\n";
 		if (isEmpty()) {
-			cout << "Empty List" << endl;
+			cout << "NO ITEMS IN LIST" << endl;
 		}
 		else {
 			Node<T>* position = head;
 			for (int i = 0; i < len; i++) {
-				cout << position->value << " ";
+				position->value.display();
 				position = position->next;
+				cout << "-----------------------------------------------------------\n";
 			}
 		}
+		cout << "END OF LIST\n";
+		cout << "===========================================================\n";
 	}
 };
 

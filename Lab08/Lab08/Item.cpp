@@ -23,6 +23,8 @@ Complete this before moving on to task 3.
 #include "Item.h"
 #include <iostream>
 #include <string>
+#include <iomanip>
+#include <sstream>
 using namespace std;
 
 Item::Item(int SKU, string description, double price, string UOM)
@@ -53,29 +55,35 @@ bool Item::available(Date desiredDate)
 
 void Item::display()
 {
-	cout << "Placeholder" << endl;
+
+	cout << "|                    ITEM INFORMATION                     |" << endl;
+	stringstream ss(getPartInfo());
+	string info;
+	string partInfoCat[3] = {"Stock Keeping Number(SKU)", "Description", "Unit of Measurement (UOM)" };
+	for (int i = 0; i < 3; i++) {
+		ss >> info;
+		cout << "| " << setw(28) << left << partInfoCat[i] << ": " << info << setw(28 - info.length()) << right << "|\n";
+	}
+	string price = to_string(getPrice());
+	price = price.substr(0, price.find('.') + 3);
+	cout << "| " << setw(28) << left << "Price" << ": $" << price << setw(27 - price.length()) << right << "|\n";
 }
 
-bool Item::operator>(Item other)
-{
-	if (SKU > other.SKU)  return true;
-	return false;
+bool Item::operator>(Item other) {
+	return SKU > other.SKU;
 }
 
 bool Item::operator<(Item other)
 {
-	if (SKU < other.SKU)  return true;
-	return false;
+	return SKU < other.SKU;
 }
 
 bool Item::operator==(Item other)
 {
-	if (SKU = other.SKU) return true;
-	return false;
+	return SKU == other.SKU;
 }
 
 bool Item::operator<=(Item other)
 {
-	if (SKU <= other.SKU)  return true;
-	return false;
+	return SKU <= other.SKU;
 }
