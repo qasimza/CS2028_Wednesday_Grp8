@@ -196,6 +196,7 @@ public:
 			if (position->value == *item) {
 				return true;
 			}
+			position = position->next;
 		}
 		return false;
 	}
@@ -213,8 +214,9 @@ public:
 		if(curr == nullptr) {
 			return nullptr;
 		}
+		T* retVal = &curr->value; //Makes sure we are returning the current value instead of next value
 		curr = curr->next;
-		return &curr->value;
+		return retVal;
 	}
 
 	T* seePrev() {
