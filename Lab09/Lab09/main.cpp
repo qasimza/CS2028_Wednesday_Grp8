@@ -17,3 +17,22 @@
 		Also, allow the user to see a list of all words with count in alphabetic order 
 		both ascending and descending (Task 1-part f and g)
 */
+
+#include "BinarySearchTree.h";
+#include <iostream>
+
+using namespace std;
+
+int main() {
+
+	BinarySearchTree<int>* tree = new BinarySearchTree<int>();
+	tree->insert(5);
+	tree->insert(6);
+	tree->insert(1);
+	tree->insert(7);
+	tree->remove(6);
+
+	cout << tree->find(1)->rightChild->data << endl;
+
+
+}
