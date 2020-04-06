@@ -1,4 +1,3 @@
-#pragma once
 /*
 	****READ MAIN FOR MORE REFERENCE****
 	c.	Your program should create a class made up of a string and an int
@@ -7,7 +6,20 @@
 		The int is the count for that word.
 		You may need to overload <, > and/or == operators for this class to be used in your Tree.
 */
+#pragma once
+#include <string>
+using namespace std;
+
 class Word
 {
+	private:
+		string word;
+		int count;
+
+	public:
+		Word(string word, int count) { this->word = word; this->count = count; }
+		bool operator<(Word);
+		bool operator>(Word);
+		bool operator==(Word);
 };
 
