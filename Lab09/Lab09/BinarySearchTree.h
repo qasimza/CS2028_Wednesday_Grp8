@@ -22,6 +22,8 @@ i.	Remove – accepts a value, finds the value and removes it from the tree.
 
 #pragma once
 #include <iostream>
+#include "Queue.h"  //From lab 6
+#include "Stack.h"  //From lab 6
 
 using namespace std;
 
@@ -38,7 +40,27 @@ public:
 		rightChild = nullptr;
 	}
 
+	~Node() {
+		delete leftChild;
+		leftChild = NULL;
+		delete rightChild;
+		rightChild = NULL;
+	}
+
 	Node() {}
+
+	//Operators were overloaded for compatibility with Stack and Queue
+	bool operator<(Node<T>* n) {
+		return data < n->data;
+	}
+
+	bool operator>(Node<T>* n) {
+		return data > n->data;
+	}
+
+	bool operator==(Node<T>* n) {
+		return data == n->data;
+	}
 };
 
 // Data structure to return multiple objects. Used in helper method
@@ -60,6 +82,8 @@ public:
 	class ValueAlreadyFoundException {};
 
 	Node<T>* root;
+	int size = 0;
+
 	BinarySearchTree() {
 		root = nullptr;
 	};
@@ -73,6 +97,7 @@ public:
 
 		if (root == nullptr) {
 			root = new Node<T>(val);
+			size++;
 			return;
 		}
 
@@ -85,6 +110,56 @@ public:
 		else {
 			parent->rightChild = newNode;
 		}
+
+		size++;
+		balanceTree();
+	}
+
+	// Remove method before submitting code. Only for debugging
+	Node<T>* getRoot() {
+		return root;
+	}
+
+	int getSize() {
+		return size;
+	}
+
+	// Always called after every insert and remove
+	void balanceTree() {
+		Node<T>** nodes = getAllAscending();
+		root = restructureTree(nodes, 0, getSize() - 1);
+	}
+
+	Node<T>** getAllAscending() {
+		Queue<Node<T>>* q = new Queue<Node<T>>(getSize());
+		addNodesInAscendingOrderToQueue(root, q);
+
+		Node<T>** arr = new Node<T> * [q->length()];
+
+		for (int i = 0; i < getSize(); i++) {
+			arr[i] = q->pop();
+			//cout << (arr[i])->data << endl;
+		}
+		return arr;
+	}
+
+	void emptyTree() {
+		delete root;
+		root = nullptr;
+		size = 0;
+	}
+
+	Node<T>** getAllDescending() {
+		Stack<Node<T>>* s = new Stack<Node<T>>(getSize());
+		addNodesInAscendingOrderToStack(root, s);
+
+		Node<T>** arr = new Node<T> * [getSize()];
+
+		for (int i = 0; i < getSize(); i++) {
+			arr[i] = s->pop();
+			//cout << (arr[i])->data << endl;
+		}
+		return arr;
 	}
 
 	Node<T>* remove(T val) {
@@ -99,7 +174,39 @@ public:
 		removedNode = dat->node;
 		parent = dat->parentNode;
 
-		if (removedNode->data < parent->data) {
+		//If Element couldn't be found, return nullptr
+		if (removedNode == nullptr) {
+			return nullptr;
+		}
+
+		if (removedNode == root) {
+
+			if (removedNode->leftChild != nullptr) {    //If left node of root is not null, make it root and adjust right node of old root accordingly
+
+				root = removedNode->leftChild;
+
+				if (removedNode->rightChild != nullptr) {
+
+					Node<T>* insertionPoint = findNodeToInsert(root,removedNode->rightChild->data);
+
+					if (removedNode->rightChild->data < insertionPoint->data) {
+						insertionPoint->leftChild = removedNode->rightChild;
+					}
+					else {
+						insertionPoint->rightChild = removedNode->rightChild;
+					}
+				}
+			}
+			else if (removedNode->rightChild != nullptr) {
+				root = removedNode->rightChild;
+			}
+			else {
+				root = nullptr;
+			}
+
+		}
+
+		else if (removedNode->data < parent->data) {
 
 			parent->leftChild = removedNode->leftChild;
 
@@ -130,6 +237,8 @@ public:
 			}
 		}
 
+		size--;
+		balanceTree();
 		return removedNode;
 
 	}
@@ -209,5 +318,71 @@ private:
 		}
 
 	}
+
+	void addNodesInAscendingOrderToQueue(Node<T>* curr, Queue<Node<T>>* q) {
+
+		if (curr == nullptr) {
+			return;
+		}
+
+		if (curr->leftChild != nullptr) {
+			addNodesInAscendingOrderToQueue(curr->leftChild, q);
+		}
+
+		q->push(curr);
+
+		if (curr->rightChild != nullptr) {
+			addNodesInAscendingOrderToQueue(curr->rightChild, q);
+		}
+
+	}
+
+	void addNodesInAscendingOrderToStack(Node<T>* curr, Stack<Node<T>>* s) {
+
+		if (curr == nullptr) {
+			return;
+		}
+
+		if (curr->leftChild != nullptr) {
+			addNodesInAscendingOrderToStack(curr->leftChild, s);
+		}
+
+		s->push(curr);
+
+		if (curr->rightChild != nullptr) {
+			addNodesInAscendingOrderToStack(curr->rightChild, s);
+		}
+
+	}
+
+	//Algorithm inspired by https ://www.geeksforgeeks.org/convert-normal-bst-balanced-bst/ 
+	Node<T>* restructureTree(Node<T>** arr, int start, int end) {
+
+		if (start > end) {
+			return NULL;
+		}
+
+		int mid = (start + end) / 2;
+		Node<T>* root = arr[mid];
+
+		root->leftChild = restructureTree(arr, start, mid - 1);
+		root->rightChild = restructureTree(arr, mid + 1, end);
+
+		return root;
+
+	}
+
+	//Recursive function to delete all nodes
+	/*void makeEmpty(Node<T>* curr) {
+		if (curr->leftChild != nullptr) {
+			makeEmpty(curr->leftChild);
+		}
+
+		if (curr->rightChild != nullptr) {
+			makeEmpty(curr->rightChild);
+		}
+
+		delete curr;
+	}*/
 
 };

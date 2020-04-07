@@ -23,16 +23,35 @@
 
 using namespace std;
 
+void print(Node<int>** arr,int size) {
+	for (int i = 0; i < size; i++) {
+		cout << arr[i]->data << endl;
+	}
+}
+
+
 int main() {
 
 	BinarySearchTree<int>* tree = new BinarySearchTree<int>();
+	tree->insert(-1);
+	tree->insert(0);
+	tree->insert(1);
+	tree->insert(2);
+	tree->insert(3);
+	tree->insert(4);
 	tree->insert(5);
 	tree->insert(6);
-	tree->insert(1);
 	tree->insert(7);
-	tree->remove(6);
+	tree->insert(8);
+	tree->insert(9);
+	tree->insert(10);
 
-	cout << tree->find(1)->rightChild->data << endl;
+	tree->remove(-1);
+	tree->remove(0);
 
+	//tree->emptyTree();
+	//cout << tree->getSize() << endl;
+
+	print(tree->getAllAscending(), tree->getSize());
 
 }
