@@ -20,38 +20,76 @@
 
 #include "BinarySearchTree.h";
 #include <iostream>
+#include <string>
+#include <fstream>
+#include <iostream>
+#include <sstream>
+#include "Word.h"
 
 using namespace std;
 
-void print(Node<int>** arr,int size) {
+void print(Node<Word>** arr,int size) {
 	for (int i = 0; i < size; i++) {
-		cout << arr[i]->data << endl;
+		cout << arr[i]->data.getWord() << "	" << arr[i]->data.getCount() << endl;
 	}
 }
 
 
 int main() {
+	string fileName;
+	string contentsString;
+	string inWord;
+	string quitFlag = "n";
+	BinarySearchTree<Word>* contents;
 
-	BinarySearchTree<int>* tree = new BinarySearchTree<int>();
-	tree->insert(-1);
-	tree->insert(0);
-	tree->insert(1);
-	tree->insert(2);
-	tree->insert(3);
-	tree->insert(4);
-	tree->insert(5);
-	tree->insert(6);
-	tree->insert(7);
-	tree->insert(8);
-	tree->insert(9);
-	tree->insert(10);
+	do {
 
-	tree->remove(-1);
-	tree->remove(0);
+		cout << "Provide file name for processing: ";
+		cin >> fileName;
+		cout << endl;
 
-	//tree->emptyTree();
-	//cout << tree->getSize() << endl;
+		//Creating ifstream object
+		ifstream bookFile;
 
-	print(tree->getAllAscending(), tree->getSize());
+		//Checking for a valid input File name
+		while (true) {
+			bookFile.open(fileName, ios::in);
+			if (bookFile.is_open()) {
+				break;
+			}
+			else {
+				cout << "Please enter a valid file name: ";
+				cin >> fileName;
+				cout << endl;
+			}
+		}
+		
+		//Creating bst:
+		contents = new BinarySearchTree<Word>();
 
+		// The while loop is reading word by word and appending the words to a bst.
+		while (!bookFile.eof()) {
+			bookFile >> inWord;
+
+			//Adding words to tree
+			try {
+				contents->insert(Word(inWord, 1));
+			}
+			catch (BinarySearchTree<Word>::ValueAlreadyFoundException) {
+				(contents->find(Word(inWord, 1)))->data++;
+
+			}
+		}
+
+		//closing istream object
+		bookFile.close();
+
+		//Displaying word frequency
+		print(contents->getAllAscending(), contents->getSize());
+
+		//New book
+		cout << "Process another book? (y/n)";
+		cin >> quitFlag; 
+
+	} while (quitFlag != "n");
 }

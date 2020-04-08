@@ -17,9 +17,13 @@ class Word
 		int count;
 
 	public:
+		Word() { this->word = ""; this->count = 0; }
 		Word(string word, int count) { this->word = word; this->count = count; }
+		string getWord() { return word; };
+		int getCount() { return count; };
 		bool operator<(Word);
 		bool operator>(Word);
 		bool operator==(Word);
+		void operator++(int);
 };
 

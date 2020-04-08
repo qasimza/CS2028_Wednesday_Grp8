@@ -147,6 +147,11 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Word.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\..\CS2028C_Data_Structures_Spring_2020\HW 1\HW 1\CardCatalog.txt" />
+    <Text Include="..\..\..\CS2028C_Data_Structures_Spring_2020\HW 1\HW 1\MobyDick.txt" />
+    <Text Include="..\..\..\CS2028C_Data_Structures_Spring_2020\HW 1\HW 1\PeterPan.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -31,3 +31,7 @@ bool Word::operator==(Word other)
 	if (comparison == 0) return 1;
 	return 0;
 }
+
+void Word::operator++(int) {
+	count++;
+}

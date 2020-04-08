@@ -36,4 +36,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\..\CS2028C_Data_Structures_Spring_2020\HW 1\HW 1\CardCatalog.txt">
+      <Filter>Source Files</Filter>
+    </Text>
+    <Text Include="..\..\..\CS2028C_Data_Structures_Spring_2020\HW 1\HW 1\MobyDick.txt">
+      <Filter>Source Files</Filter>
+    </Text>
+    <Text Include="..\..\..\CS2028C_Data_Structures_Spring_2020\HW 1\HW 1\PeterPan.txt">
+      <Filter>Source Files</Filter>
+    </Text>
+  </ItemGroup>
 </Project>
