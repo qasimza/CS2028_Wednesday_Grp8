@@ -89,7 +89,7 @@ int main() {
 		bookFile.close();
 	
 		//Look up a word
-		cout << "Look up a word frequency?: ";
+		cout << "Look up a word frequency? (y/n): ";
 		cin >> lookupFlag;
 		while (lookupFlag != "n") {
 			cout << "Enter word: ";
@@ -106,13 +106,16 @@ int main() {
 		}
 
 		//Displaying word frequency
-		cout << "Display all words?(y/n): ";
+		cout << "Display all words?(a-Ascending/d-Descending/any other key-no display): ";
 		cin >> lookupFlag;
-		if (lookupFlag == "y") {
+		if (lookupFlag == "a") {
 			print(contents->getAllAscending(), contents->getSize());
 		}
-
-		//New book
+		else if (lookupFlag == "d") {
+			print(contents->getAllDescending(), contents->getSize());
+		}
+		
+		//New file
 		cout << "Process another book? (y/n): ";
 		cin >> quitFlag; 
 		lookupFlag = "y";
