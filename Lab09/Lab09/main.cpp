@@ -76,12 +76,12 @@ int main() {
 			bookFile >> inWord;
 
 			//Adding words to tree
-			try {
+			Node<Word>* curr = contents->find(Word(inWord, 1));
+			if (curr == nullptr) {
 				contents->insert(Word(inWord, 1));
 			}
-			catch (BinarySearchTree<Word>::ValueAlreadyFoundException) {
-				(contents->find(Word(inWord, 1)))->data++;
-
+			else {
+				curr->data++;
 			}
 		}
 

@@ -90,7 +90,12 @@ public:
 	~BinarySearchTree() {};
 
 	Node<T>* find(T val) {
-		return findNode(root, val);
+		if (root == nullptr) {
+			return nullptr;
+		}
+		else {
+			return findNode(root, val);
+		}
 	}
 
 	void insert(T val) {
@@ -277,6 +282,7 @@ private:
 
 // Find the node with a given value. This function is recursive
 	Node<T>* findNode(Node<T>* curr, T val) {
+
 		if (curr->data == val) {
 			return curr;
 		}
