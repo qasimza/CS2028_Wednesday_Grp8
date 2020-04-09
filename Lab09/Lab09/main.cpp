@@ -24,13 +24,16 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <iomanip>
 #include "Word.h"
 
 using namespace std;
 
 void print(Node<Word>** arr,int size) {
+	cout << left << setw(46) << "Word" << "Frequency" << endl;
+	cout << "====================================================================" << endl;
 	for (int i = 0; i < size; i++) {
-		cout << arr[i]->data.getWord() << "	" << arr[i]->data.getCount() << endl;
+		cout << left << setw(46) << arr[i]->data.getWord() << arr[i]->data.getCount() << endl;
 	}
 }
 
@@ -40,6 +43,7 @@ int main() {
 	string contentsString;
 	string inWord;
 	string quitFlag = "n";
+	string lookupFlag = "y";
 	BinarySearchTree<Word>* contents;
 
 	do {
@@ -83,13 +87,35 @@ int main() {
 
 		//closing istream object
 		bookFile.close();
+	
+		//Look up a word
+		cout << "Look up a word frequency?: ";
+		cin >> lookupFlag;
+		while (lookupFlag != "n") {
+			cout << "Enter word: ";
+			cin >> inWord;
+			Node<Word> *lookup = contents->find(Word(inWord, 1));
+			if (lookup == nullptr) {
+				cout << "Word not found" << endl;
+			}
+			else{
+				cout << "Word: " << (lookup->data).getWord() << " Frequency: " << (lookup->data).getCount() << endl;
+			}
+			cout << "Look up another word?(y/n): ";
+			cin >> lookupFlag;
+		}
 
 		//Displaying word frequency
-		print(contents->getAllAscending(), contents->getSize());
+		cout << "Display all words?(y/n): ";
+		cin >> lookupFlag;
+		if (lookupFlag == "y") {
+			print(contents->getAllAscending(), contents->getSize());
+		}
 
 		//New book
-		cout << "Process another book? (y/n)";
+		cout << "Process another book? (y/n): ";
 		cin >> quitFlag; 
+		lookupFlag = "y";
 
 	} while (quitFlag != "n");
 }
