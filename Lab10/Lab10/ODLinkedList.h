@@ -165,6 +165,11 @@ public:
 		}
 		
 	T* getItem(T* item) {
+
+		if (size() == 0) {
+			return nullptr;
+		}
+
 		T *returnItem = nullptr;
 		Node<T>* position = head;
 
@@ -277,22 +282,23 @@ public:
 		head = nullptr;
 	}
 
-	//Function for printing list
+	//Function for printing list  (This method has been modified to be better suited for the purposed of lab 10)
 	void display() {
-		cout << "LIST CONTENTS: \n";
-		cout << "===========================================================\n";
 		if (isEmpty()) {
-			cout << "NO ITEMS IN LIST" << endl;
+			cout << "empty" << endl;
 		}
 		else {
 			Node<T>* position = head;
 			for (int i = 0; i < len; i++) {
-				position->value.display();
+				if (i != len - 1) {
+					cout << (position->value) << " || ";
+				}
+				else {
+					cout << (position->value) << endl;
+				}
 				position = position->next;
 			}
 		}
-		cout << "END OF LIST\n";
-		cout << "===========================================================\n";
 	}
 };
 

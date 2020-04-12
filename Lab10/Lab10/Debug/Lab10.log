@@ -1,0 +1,19 @@
+﻿  Main.cpp
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab10\Lab10\HashTable.h(196,2): warning C4018: '<': signed/unsigned mismatch
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab10\Lab10\HashTable.h(193): message : while compiling class template member function 'int HashTable<T>::hash(std::string)'
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab10\Lab10\HashTable.h(193): message :         with
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab10\Lab10\HashTable.h(193): message :         [
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab10\Lab10\HashTable.h(193): message :             T=std::string
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab10\Lab10\HashTable.h(193): message :         ]
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab10\Lab10\ChainedHashTable.h(71): message : see reference to function template instantiation 'int HashTable<T>::hash(std::string)' being compiled
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab10\Lab10\ChainedHashTable.h(71): message :         with
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab10\Lab10\ChainedHashTable.h(71): message :         [
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab10\Lab10\ChainedHashTable.h(71): message :             T=std::string
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab10\Lab10\ChainedHashTable.h(71): message :         ]
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab10\Lab10\ChainedHashTable.h(17): message : see reference to class template instantiation 'HashTable<T>' being compiled
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab10\Lab10\ChainedHashTable.h(17): message :         with
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab10\Lab10\ChainedHashTable.h(17): message :         [
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab10\Lab10\ChainedHashTable.h(17): message :             T=std::string
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab10\Lab10\ChainedHashTable.h(17): message :         ]
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab10\Lab10\Main.cpp(10): message : see reference to class template instantiation 'ChainedHashTable<std::string>' being compiled
+  Lab10.vcxproj -> C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab10\Debug\Lab10.exe
