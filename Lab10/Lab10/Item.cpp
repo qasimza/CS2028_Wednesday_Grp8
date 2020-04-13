@@ -93,6 +93,11 @@ bool Item::operator==(Item other)
 	return SKU == other.SKU;
 }
 
+bool Item::operator!=(Item other)
+{
+	return !(*this == other);
+}
+
 bool Item::operator<=(Item other)
 {
 	if (this == nullptr) return false;
