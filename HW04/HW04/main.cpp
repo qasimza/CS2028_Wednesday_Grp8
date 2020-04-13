@@ -18,7 +18,7 @@
 #include <iostream>
 #include <random>
 #include "BinarySearchTree.h"
-#include "Hash.h"
+#include "HashTable.h"
 using namespace std;
 
 int main()
@@ -52,13 +52,26 @@ int main()
 
     // Initialize Data Structures
     BinarySearchTree<int> bst;
+    HashTable<int> ht;
+
+    // Intialize sums
+    int bstSum = 0;
+    int htSum = 0;
 
     // Insert 50 items into both data structures
     for (int i = 0; i < SIZE / 2; i++)
     {
         bst.insert(randomNumbers[i]);
-        // HASH
+        //ht.insert(randomNumbers[i]);
     }
+
+    // Output sum and reset
+    cout << "Inserting 50 items..." << endl;
+    cout << "BST: " << bstSum << endl;
+    cout << "HT: " << htSum << endl;
+    bstSum = 0;
+    htSum = 0;
+    cout << endl;
 
     // Remove items at intervals of 7 from both data structures
     for (int i = 0; i < SIZE; i++)
@@ -66,24 +79,48 @@ int main()
         if (i % 7 == 0)
         {
             bst.remove(randomNumbers[i]);
-            // HASH
+            //ht.remove(randomNumbers[i]);
         }
     }
+
+    // Output sum and reset
+    cout << "Removing mod7 indexed items..." << endl;
+    cout << "BST: " << bstSum << endl;
+    cout << "HT: " << htSum << endl;
+    bstSum = 0;
+    htSum = 0;
+    cout << endl;
 
     // Insert remaining 50 items into both data structures
     for (int i = SIZE / 2; i < SIZE; i++)
     {
         bst.insert(randomNumbers[i]);
-        // HASH
+        //ht.insert(randomNumbers[i]);
     }
+
+    // Output sum and reset
+    cout << "Inserting remaining 50 items..." << endl;
+    cout << "BST: " << bstSum << endl;
+    cout << "HT: " << htSum << endl;
+    bstSum = 0;
+    htSum = 0;
+    cout << endl;
 
     // Finds items at intervals of 9 from both data structures
     for (int i = 0; i < SIZE; i++)
     {
         if (i % 9 == 0)
         {
-            Node<int>* bstNode = bst.find(randomNumbers[i]);
-            // HASH
+            bst.find(randomNumbers[i]);
+            //ht.find(randomNumbers[i]);
         }
     }
+
+    // Output sum and reset
+    cout << "Finding mod9 items..." << endl;
+    cout << "BST: " << bstSum << endl;
+    cout << "HT: " << htSum << endl;
+    bstSum = 0;
+    htSum = 0;
+    cout << endl;
 }
