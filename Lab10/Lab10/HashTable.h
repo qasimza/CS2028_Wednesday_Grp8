@@ -28,6 +28,8 @@ Task 1:  Create a Hash Table that uses linear probing.
 
 #pragma once
 
+#include <string>
+#include <iostream>
 using namespace std;
 
 template <typename T>
@@ -140,7 +142,7 @@ public:
 				cout << "nullPTR" << endl;
 			}
 			else {
-				cout << *(curr->data) << endl;
+				cout << (string)*(curr->data) << endl;
 			}
 		}
 	}
