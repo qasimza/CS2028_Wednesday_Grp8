@@ -14,3 +14,76 @@
 4. Write unit tests for your two classes. You can learn more about unit tests for Visual Studio at
    https://docs.microsoft.com/en-us/visualstudio/test/writing-unit-tests-for-ccpp?view=vs-2019.
 */
+
+#include <iostream>
+#include <random>
+#include "BinarySearchTree.h"
+#include "Hash.h"
+using namespace std;
+
+int main()
+{
+    // Initialize an empty array of integers
+    const int SIZE = 100;
+    int randomNumbers[SIZE] = { 0 };
+
+    // Fill array with unique integers
+    for (int i = 0; i < SIZE; ++i)
+    {
+        bool isUnique = false;
+        while (!isUnique)
+        {
+            // Create a random integer
+            int random = (rand() * (rand() % 2 == 0 ? -1 : 1));
+
+            // Check if the integer is unique
+            for (int j = 0; j < SIZE; j++)
+            {
+                // If the end is reached and nothing matches, it is unique
+                if (random != randomNumbers[j] && j == (SIZE - 1))
+                {
+                    isUnique = true;
+                    randomNumbers[i] = random;
+                }
+            }
+        }
+
+    }
+
+    // Initialize Data Structures
+    BinarySearchTree<int> bst;
+
+    // Insert 50 items into both data structures
+    for (int i = 0; i < SIZE / 2; i++)
+    {
+        bst.insert(randomNumbers[i]);
+        // HASH
+    }
+
+    // Remove items at intervals of 7 from both data structures
+    for (int i = 0; i < SIZE; i++)
+    {
+        if (i % 7 == 0)
+        {
+            bst.remove(randomNumbers[i]);
+            // HASH
+        }
+    }
+
+    // Insert remaining 50 items into both data structures
+    for (int i = SIZE / 2; i < SIZE; i++)
+    {
+        bst.insert(randomNumbers[i]);
+        // HASH
+    }
+
+    // Finds items at intervals of 9 from both data structures
+    for (int i = 0; i < SIZE; i++)
+    {
+        if (i % 9 == 0)
+        {
+            Node<int>* bstNode = bst.find(randomNumbers[i]);
+            // HASH
+        }
+    }
+}
