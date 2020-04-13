@@ -98,3 +98,8 @@ bool Item::operator<=(Item other)
 	if (this == nullptr) return false;
 	return SKU <= other.SKU;
 }
+
+Item::operator string()
+{
+	return to_string(SKU);
+}

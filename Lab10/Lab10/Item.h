@@ -84,5 +84,6 @@ class Item
 		bool operator<(Item other);
 		bool operator==(Item other);
 		bool operator<=(Item other);
+		operator string();
 };
 
