@@ -48,7 +48,7 @@ template <typename T>
 class HashTable {
 
 protected:
-	int maxSize = 100;
+	int maxSize = 250;
 	int size = 0;
 	HashNode<T>** data;
 	HashNode<T>* deleteMarker;
@@ -136,10 +136,10 @@ public:
 		for (int i = 0; i < maxSize; i++) {
 			HashNode<T>* curr = data[i];
 			if (curr == deleteMarker) {
-				cout << "deleted" << endl;
+				cout << "Deleted" << endl;
 			}
 			else if (curr == nullptr) {
-				cout << "nullPTR" << endl;
+				cout << "nullPtr" << endl;
 			}
 			else {
 				cout << (string)*(curr->data) << endl;

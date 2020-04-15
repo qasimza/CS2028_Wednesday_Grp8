@@ -5,7 +5,7 @@
 
 using namespace std;
 
-int main() {
+int main2() {
 	
 	ChainedHashTable<string> test(10);
 	test.addItem(new string("asfh"));
@@ -31,5 +31,6 @@ int main() {
 	//	cout << "ret is mullptr" << endl;
 	//}
 	//cout << test.getLength() << endl;
+	return 1;
 
 }

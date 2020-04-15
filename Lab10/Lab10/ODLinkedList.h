@@ -291,10 +291,10 @@ public:
 			Node<T>* position = head;
 			for (int i = 0; i < len; i++) {
 				if (i != len - 1) {
-					cout << (position->value) << " || ";
+					cout << string(position->value) << " || ";
 				}
 				else {
-					cout << (position->value) << endl;
+					cout << string(position->value) << endl;
 				}
 				position = position->next;
 			}

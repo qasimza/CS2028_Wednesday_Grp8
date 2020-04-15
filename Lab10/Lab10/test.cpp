@@ -3,6 +3,10 @@ Task 3:  Modify your test program from Lab 8, Task 3 (test program) to test your
 		 Include a screen shot of some of this testing in your lab report.
 		 Complete this before moving on to task 4.
 
+Task 4: Modify your test program from Task 3 to test this new class.  
+		Include a screen shot of some of this testing in your lab report.
+		Complete this before moving on to task 5.
+
 Task 5: Measure the performance of the linear probing and chained linking implementations of a hash table 
 		(similar to Lab 7 task 4). To do this, modify both classes to keep track of the 
 		number of times an item is compared in the chain for chained linking and the number 
@@ -65,12 +69,18 @@ Task 4:  Create a visualization of your list using ASCII art.
 */
 
 #include "HashTable.h"
+#include "ChainedHashTable.h"
 #include "Item.h"
 #include <iostream>
+#include <thread>
+#include <chrono>
+#include <vector>
+#include <cstdlib>
+
 
 using namespace std;
 
-int main() {
+void testHashTable() {
 	string line = "---------------------------------------------------------";
 	bool shouldRun = true;
 	HashTable<Item>* list = new HashTable<Item>();
@@ -185,5 +195,246 @@ int main() {
 		}
 
 	}
+
+}
+
+void testChainedHashTable() {
+	string line = "---------------------------------------------------------";
+	bool shouldRun = true;
+	ChainedHashTable<Item>* list = new ChainedHashTable<Item>();
+
+	while (shouldRun) {
+		int selected = -1;
+		// Get user to select a function or quit program
+		cout << "Please select an option:" << endl;
+		cout << "0 - Create new List" << endl;
+		cout << "1 - Call addItem()" << endl;
+		cout << "2 - Call removeItem()" << endl;
+		cout << "3 - Call getItem()" << endl;
+		cout << "4 - Call getLength()" << endl;
+		cout << "5 - Display List" << endl;
+		cout << "6 - Quit Test Program" << endl;
+		cout << line << endl;
+		cin >> selected;
+
+		switch (selected) {
+		case 6: {
+			shouldRun = false;
+			break;
+		}
+		case 5: {
+			list->display();
+			break;
+		}
+
+		case 4: {
+			cout << "Current list size: " << list->getLength() << endl;
+			cout << line << endl;
+			break;
+		}
+
+		case 2: {
+			int SKU = -1;
+			cout << "Enter the value of SKU: ";
+			cin >> SKU;
+			Item* item = list->removeItem(new Item(SKU, "", 0.0, ""));
+			if (item == nullptr) {
+				cout << "ERROR: Item Not Found" << endl;
+			}
+			else {
+				item->display();
+				cout << "Item removed from list" << endl;
+			}
+			cout << line << endl;
+			break;
+		}
+
+		case 3: {
+			int SKU = -1;
+			cout << "Enter the value of SKU: ";
+			cin >> SKU;
+			Item* item = list->getItem(new Item(SKU, "", 0.0, ""));
+			if (item == nullptr) {
+				cout << "ERROR: Item Not Found" << endl;
+			}
+			else {
+				item->display();
+			}
+			cout << line << endl;
+			break;
+		}
+		case 1: {
+			int SKU = -1;
+			cout << "Enter the value of SKU: ";
+			cin >> SKU;
+
+			string description;
+			cout << "Enter a description: ";
+			cin.ignore();
+			getline(cin, description);
+
+			double price = -1;
+			cout << "Enter the price: ";
+			cin >> price;
+
+			string UOM = "";
+			cout << "Enter the UOM: ";
+			cin >> UOM;
+
+			int quantityOnHand = -1;
+			cout << "Enter the quantity on hand. Enter -1 if you don't want to add it: ";
+			cin >> quantityOnHand;
+
+			Item* item;
+
+			if (quantityOnHand == -1) {
+				item = new Item(SKU, description, price, UOM);
+			}
+			else {
+				item = new Item(SKU, description, price, UOM, quantityOnHand);
+			}
+
+			list->addItem(item);
+			cout << "Item added" << endl;
+			cout << line << endl;
+			break;
+		}
+		case 0: {
+			delete list;
+			list = new ChainedHashTable<Item>();
+			cout << "New list created" << endl;
+			cout << line << endl;
+			break;
+		}
+		default: {
+			cout << "Enter a valid option" << endl;
+			break;
+		}
+		}
+
+	}
+
+}
+
+//Reference for chrono: https://www.techiedelight.com/measure-elapsed-time-program-chrono-library/
+//Reference for sleep: http://www.martinbroadhurst.com/sleep-for-milliseconds-in-c.html
+
+
+void testPerformance() {
+	
+	cout << "THIS TEST MAY TAKE A WHILE PLEASE GIVE THE PROGRAM A MOMENT TO COMPLETE :)" << endl;
+	std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+
+	int dimList[4] = {50, 150, 200, 250};
+	double hashtable[4];
+	double chained[4];
+
+	for (int dim = 0; dim < 4; dim++) {
+		auto start = chrono::steady_clock::now();
+		HashTable<Item>* table = new HashTable<Item>(dimList[dim]);
+		vector<int> skuList;
+		int sku;
+		bool uniqueSku;
+		Item* item;
+		srand(0);
+		for (int i = 0; i < dimList[dim]; i++) {
+			do {
+				sku = rand() % 20000;
+				uniqueSku = true;
+				for (int j = 0; j < i; j++) {
+					if (skuList[j] == sku) {
+						uniqueSku = false;
+					}
+				}
+			} while (!uniqueSku);
+			item = new Item(sku, "Student#"+to_string(i), 0.0, "Person", 1);
+			skuList.push_back(sku);
+			table->addItem(item);
+		}
+		
+		for (int i = 0; i < dimList[dim]; i++) {
+			Item* itemGet = table->getItem(new Item(skuList[i], "", 0.0, ""));
+			itemGet->display();
+		}
+
+		auto end = chrono::steady_clock::now();
+
+		hashtable[dim] = chrono::duration_cast<chrono::milliseconds>(end - start).count();
+	}
+	
+	for (int dim = 0; dim < 4; dim++) {
+		auto start = chrono::steady_clock::now();
+		ChainedHashTable<Item>* table = new ChainedHashTable<Item>(dimList[dim]);
+		vector<int> skuList;
+		int sku;
+		bool uniqueSku;
+		Item* item;
+		srand(0);
+		for (int i = 0; i < dimList[dim]; i++) {
+			do {
+				sku = rand() % 20000;
+				uniqueSku = true;
+				for (int j = 0; j < i; j++) {
+					if (skuList[j] == sku) {
+						uniqueSku = false;
+					}
+				}
+			} while (!uniqueSku);
+			item = new Item(sku, "Student" + to_string(i), i * i, "Person", 1);
+			skuList.push_back(sku);
+			table->addItem(item);
+		}
+
+		for (int i = 0; i < dimList[dim]; i++) {
+			Item* itemGet = table->getItem(new Item(skuList[i], "", 0.0, ""));
+			itemGet->display();
+		}
+
+		auto end = chrono::steady_clock::now();
+
+		chained[dim] = chrono::duration_cast<chrono::milliseconds>(end - start).count();
+	}
+
+	cout << "RESULTS FOR HASH TABLE: " << endl;
+	for (int i = 0; i < 4; i++) {
+		cout << "Total time for " << dimList[i] << " items: " << hashtable[i] << "ms" << endl;
+	}
+
+	cout << "RESULTS FOR CHAINED HASH TABLE: " << endl;
+	for (int i = 0; i < 4; i++) {
+		cout << "Total time for " << dimList[i] << " items: " <<chained[i] << "ms" << endl;
+	}
+}
+
+int main(){
+	bool exitFlag = false;
+	int choice;
+	while (!exitFlag) {
+		cout << "OPTIONS:" << endl;
+		cout << "1 - Test Hash Table" << endl;
+		cout << "2 - Test Chained Hash Table" << endl;
+		cout << "3 - Priority Testing" << endl;
+		cout << "4 - Quit" << endl;
+		cout << "Enter choice: ";
+		cin >> choice;
+		switch (choice) {
+		case 1: 
+			testHashTable();
+			break;
+		case 2:
+			testChainedHashTable();
+			break;
+		case 3:
+			testPerformance();
+			break;
+		case 4:
+			exitFlag = true;
+			break;
+		default:
+			cout << "Select a valid option" << endl;
+			cin >> choice;
+		}
+	}
+
 
 }
