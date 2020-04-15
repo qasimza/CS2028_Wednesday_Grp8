@@ -330,7 +330,7 @@ void testPerformance() {
 	double chained[4];
 
 	for (int dim = 0; dim < 4; dim++) {
-		auto start = chrono::steady_clock::now();
+		
 		HashTable<Item>* table = new HashTable<Item>(dimList[dim]);
 		vector<int> skuList;
 		int sku;
@@ -347,14 +347,19 @@ void testPerformance() {
 					}
 				}
 			} while (!uniqueSku);
-			item = new Item(sku, "Student#"+to_string(i), 0.0, "Person", 1);
+
 			skuList.push_back(sku);
+		}
+
+		auto start = chrono::steady_clock::now();
+
+		for (int i = 0; i < dimList[dim]; i++) {
+			item = new Item(skuList[i], "Student#" + to_string(i), 0.0, "Person", 1);
 			table->addItem(item);
 		}
 		
 		for (int i = 0; i < dimList[dim]; i++) {
-			Item* itemGet = table->getItem(new Item(skuList[i], "", 0.0, ""));
-			itemGet->display();
+			table->getItem(new Item(skuList[i], "", 0.0, ""));
 		}
 
 		auto end = chrono::steady_clock::now();
@@ -363,7 +368,7 @@ void testPerformance() {
 	}
 	
 	for (int dim = 0; dim < 4; dim++) {
-		auto start = chrono::steady_clock::now();
+		
 		ChainedHashTable<Item>* table = new ChainedHashTable<Item>(dimList[dim]);
 		vector<int> skuList;
 		int sku;
@@ -380,14 +385,20 @@ void testPerformance() {
 					}
 				}
 			} while (!uniqueSku);
-			item = new Item(sku, "Student" + to_string(i), i * i, "Person", 1);
+			
 			skuList.push_back(sku);
+			
+		}
+
+		auto start = chrono::steady_clock::now();
+
+		for (int i = 0; i < dimList[dim]; i++) {
+			item = new Item(skuList[i], "Student" + to_string(i), i * i, "Person", 1);
 			table->addItem(item);
 		}
 
 		for (int i = 0; i < dimList[dim]; i++) {
-			Item* itemGet = table->getItem(new Item(skuList[i], "", 0.0, ""));
-			itemGet->display();
+			table->getItem(new Item(skuList[i], "", 0.0, ""));
 		}
 
 		auto end = chrono::steady_clock::now();
