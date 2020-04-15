@@ -1,19 +1,21 @@
-﻿  test.cpp
-C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab10\Lab10\test.cpp(367,82): warning C4244: '=': conversion from '_Rep' to 'double', possible loss of data
-C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab10\Lab10\test.cpp(367,82): warning C4244:         with
-C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab10\Lab10\test.cpp(367,82): warning C4244:         [
-C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab10\Lab10\test.cpp(367,82): warning C4244:             _Rep=__int64
-C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab10\Lab10\test.cpp(367,82): warning C4244:         ]
-C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab10\Lab10\test.cpp(406,80): warning C4244: '=': conversion from '_Rep' to 'double', possible loss of data
-C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab10\Lab10\test.cpp(406,80): warning C4244:         with
-C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab10\Lab10\test.cpp(406,80): warning C4244:         [
-C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab10\Lab10\test.cpp(406,80): warning C4244:             _Rep=__int64
-C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab10\Lab10\test.cpp(406,80): warning C4244:         ]
-C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab10\Lab10\HashTable.h(198,2): warning C4018: '<': signed/unsigned mismatch
-C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab10\Lab10\HashTable.h(195): message : while compiling class template member function 'int HashTable<Item>::hash(std::string)'
-C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab10\Lab10\ChainedHashTable.h(71): message : see reference to function template instantiation 'int HashTable<Item>::hash(std::string)' being compiled
-C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab10\Lab10\test.cpp(86): message : see reference to class template instantiation 'HashTable<Item>' being compiled
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\chrono(669): message : see reference to class template instantiation 'std::chrono::duration<double,std::ratio<1,1>>' being compiled
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\chrono(177): message : see reference to class template instantiation 'std::chrono::duration<__int64,std::nano>' being compiled
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\chrono(647): message : see reference to class template instantiation 'std::chrono::time_point<std::chrono::steady_clock,std::chrono::steady_clock::duration>' being compiled
-  Lab10.vcxproj -> C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab10\Debug\Lab10.exe
+﻿  Item.cpp
+  test.cpp
+C:\Users\Zaina\source\repos\qasimza\CS2028_Wednesday_Grp8\Lab10\Lab10\test.cpp(367,82): warning C4244: '=': conversion from '_Rep' to 'double', possible loss of data
+          with
+          [
+              _Rep=__int64
+          ]
+C:\Users\Zaina\source\repos\qasimza\CS2028_Wednesday_Grp8\Lab10\Lab10\test.cpp(406,80): warning C4244: '=': conversion from '_Rep' to 'double', possible loss of data
+          with
+          [
+              _Rep=__int64
+          ]
+C:\Users\Zaina\source\repos\qasimza\CS2028_Wednesday_Grp8\Lab10\Lab10\HashTable.h(198,2): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Zaina\source\repos\qasimza\CS2028_Wednesday_Grp8\Lab10\Lab10\HashTable.h(195): message : while compiling class template member function 'int HashTable<Item>::hash(std::string)'
+C:\Users\Zaina\source\repos\qasimza\CS2028_Wednesday_Grp8\Lab10\Lab10\ChainedHashTable.h(71): message : see reference to function template instantiation 'int HashTable<Item>::hash(std::string)' being compiled
+C:\Users\Zaina\source\repos\qasimza\CS2028_Wednesday_Grp8\Lab10\Lab10\test.cpp(86): message : see reference to class template instantiation 'HashTable<Item>' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\chrono(632): message : see reference to class template instantiation 'std::chrono::duration<double,std::ratio<1,1>>' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\chrono(178): message : see reference to class template instantiation 'std::chrono::duration<__int64,std::nano>' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\chrono(610): message : see reference to class template instantiation 'std::chrono::time_point<std::chrono::steady_clock,std::chrono::nanoseconds>' being compiled
+  Generating Code...
+  Lab10.vcxproj -> C:\Users\Zaina\source\repos\qasimza\CS2028_Wednesday_Grp8\Lab10\Debug\Lab10.exe
