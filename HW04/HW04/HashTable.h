@@ -189,7 +189,8 @@ public:
 
 protected:
 	int hash(int key) {
-		return (abs(key) % (maxSize+1 - size));   //+1 to make sure division by zero doesn't occur
+		//return (abs(key) % (maxSize+1 - size));   //+1 to make sure division by zero doesn't occur
+		return (abs(key) % (maxSize));  //Much better than the aboce hash function as the key dooes not depend on the remaining space, which would not be fixed
 	}
 
 	virtual void init() {
