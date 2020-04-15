@@ -140,6 +140,7 @@
   <ItemGroup>
     <ClInclude Include="BinarySearchTree.h" />
     <ClInclude Include="Hash.h" />
+    <ClInclude Include="HashTable.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />

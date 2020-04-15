@@ -23,96 +23,97 @@ using namespace std;
 
 int main()
 {
-    // Initialize an empty array of integers
-    const int SIZE = 100;
-    int randomNumbers[SIZE] = { 0 };
+	// Initialize an empty array of integers
+	const int SIZE = 100;
+	int randomNumbers[SIZE] = { 0 };
 
-    // Fill array with unique integers
-    for (int i = 0; i < SIZE; ++i)
-    {
-        bool isUnique = false;
-        while (!isUnique)
+	// Fill array with unique integers
+	for (int i = 0; i < SIZE; ++i)
+	{
+		//randomNumbers[i] = i * rand();
+		bool isUnique = false;
+		while (!isUnique)
+		{
+			// Create a random integer
+			int random = (rand() * (rand() % 2 == 0 ? -1 : 1));
+
+			// Check if the integer is unique
+			for (int j = 0; j < SIZE; j++)
+			{
+				// If the end is reached and nothing matches, it is unique
+				if (random != randomNumbers[j] && j == (SIZE - 1))
+				{
+					isUnique = true;
+					randomNumbers[i] = random;
+				}
+			}
+		}
+
+	}
+
+	// Initialize Data Structures
+	BinarySearchTree<int> bst;
+	HashTable<int> ht(100);
+
+	// Intialize sums
+	int bstSum = 0;
+	int htSum = 0;
+
+	// Insert 50 items into both data structures
+	for (int i = 0; i < SIZE / 2; i++)
+	{
+		bstSum += bst.insert(randomNumbers[i]);
+		htSum += ht.insert(&randomNumbers[i]);
+	}
+
+	// Output sum and reset
+	cout << "Inserting 50 items..." << endl;
+	cout << "BST: " << bstSum << endl;
+	cout << "HT: " << htSum << endl;
+	bstSum = 0;
+	htSum = 0;
+	cout << endl;
+
+	// Remove items at intervals of 7 from both data structures
+	for (int i = 0; i < SIZE; i++)
+	{
+		if (i % 7 == 0)
+		{
+			bstSum += bst.remove(randomNumbers[i]);
+			htSum += ht.remove(&randomNumbers[i]);
+		}
+	}
+
+	// Output sum and reset
+	cout << "Removing mod7 indexed items..." << endl;
+	cout << "BST: " << bstSum << endl;
+	cout << "HT: " << htSum << endl;
+	bstSum = 0;
+	htSum = 0;
+	cout << endl;
+
+	// Insert remaining 50 items into both data structures
+	for (int i = SIZE / 2; i < SIZE; i++)
+	{
+		bstSum += bst.insert(randomNumbers[i]);
+		htSum += ht.insert(&randomNumbers[i]);
+	}
+
+	// Output sum and reset
+	cout << "Inserting remaining 50 items..." << endl;
+	cout << "BST: " << bstSum << endl;
+	cout << "HT: " << htSum << endl;
+	bstSum = 0;
+	htSum = 0;
+	cout << endl;
+
+	// Finds items at intervals of 9 from both data structures
+	for (int i = 0; i < SIZE; i++)
+	{
+		if (((i % 9) == 0 && (i % 7) != 0 && i < SIZE / 2) || ((i % 9) == 0 && i >= SIZE / 2))
         {
-            // Create a random integer
-            int random = (rand() * (rand() % 2 == 0 ? -1 : 1));
-
-            // Check if the integer is unique
-            for (int j = 0; j < SIZE; j++)
-            {
-                // If the end is reached and nothing matches, it is unique
-                if (random != randomNumbers[j] && j == (SIZE - 1))
-                {
-                    isUnique = true;
-                    randomNumbers[i] = random;
-                }
-            }
-        }
-
-    }
-
-    // Initialize Data Structures
-    BinarySearchTree<int> bst;
-    HashTable<int> ht;
-
-    // Intialize sums
-    int bstSum = 0;
-    int htSum = 0;
-
-    // Insert 50 items into both data structures
-    for (int i = 0; i < SIZE / 2; i++)
-    {
-        bst.insert(randomNumbers[i]);
-        //ht.insert(randomNumbers[i]);
-    }
-
-    // Output sum and reset
-    cout << "Inserting 50 items..." << endl;
-    cout << "BST: " << bstSum << endl;
-    cout << "HT: " << htSum << endl;
-    bstSum = 0;
-    htSum = 0;
-    cout << endl;
-
-    // Remove items at intervals of 7 from both data structures
-    for (int i = 0; i < SIZE; i++)
-    {
-        if (i % 7 == 0)
-        {
-            bst.remove(randomNumbers[i]);
-            //ht.remove(randomNumbers[i]);
-        }
-    }
-
-    // Output sum and reset
-    cout << "Removing mod7 indexed items..." << endl;
-    cout << "BST: " << bstSum << endl;
-    cout << "HT: " << htSum << endl;
-    bstSum = 0;
-    htSum = 0;
-    cout << endl;
-
-    // Insert remaining 50 items into both data structures
-    for (int i = SIZE / 2; i < SIZE; i++)
-    {
-        bst.insert(randomNumbers[i]);
-        //ht.insert(randomNumbers[i]);
-    }
-
-    // Output sum and reset
-    cout << "Inserting remaining 50 items..." << endl;
-    cout << "BST: " << bstSum << endl;
-    cout << "HT: " << htSum << endl;
-    bstSum = 0;
-    htSum = 0;
-    cout << endl;
-
-    // Finds items at intervals of 9 from both data structures
-    for (int i = 0; i < SIZE; i++)
-    {
-        if (i % 9 == 0)
-        {
-            bst.find(randomNumbers[i]);
-            //ht.find(randomNumbers[i]);
+			bstSum += bst.find(randomNumbers[i]);
+            htSum+=ht.find(&randomNumbers[i]);
         }
     }
 

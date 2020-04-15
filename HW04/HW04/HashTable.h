@@ -56,21 +56,23 @@ public:
 	}
 
 	//Inspired by https://www.geeksforgeeks.org/implementing-hash-table-open-addressing-linear-probing-cpp/?ref=rp
-	virtual void insert(T* item) {
+	virtual int insert(T* item) {
 
 		if (size == maxSize) {
 			throw TableFullException();
 		}
+
+		int ret = 1;
 
 		int index = hash(*item);
 
 		bool shouldLoop = true;
 
 		while (shouldLoop) {
-			if (data[index] != nullptr && data[index] != deleteMarker &&
-				*((data[index])->data) != *item) {
+			if (data[index] != nullptr && data[index] != deleteMarker && *((data[index])->data) != *item) {
 				index += 1;
 				index %= maxSize;
+				ret++;
 			}
 			else {
 				shouldLoop = false;
@@ -82,16 +84,18 @@ public:
 		}
 
 		data[index] = new HashNode<T>(item);
+		return ret;
 	}
 
-	virtual T* remove(T* item) {
+	virtual int remove(T* item) {
+		int ret = 1;
 		int index = hash(*item);
 		int counter = 0;  //to prevent infinite loop
 		HashNode<T>* curr;
 
 		//Not found, and no value has ever been inserted with this particular key
 		if (data[index] == nullptr) {
-			return nullptr;
+			return 0;
 		}
 
 
@@ -100,7 +104,7 @@ public:
 		while (curr != nullptr && curr != deleteMarker) {
 
 			if (counter == maxSize) { //Was not able to find, made a complete loop
-				return nullptr;
+				return ret;
 			}
 
 			if (*(curr->data) == *item) { //item found
@@ -108,16 +112,17 @@ public:
 				delete data[index];
 				data[index] = deleteMarker;  //mark removed location as delete marker
 				size--;
-				return tempData;
+				return ret;
 			}
 
+			ret++;
 			index += 1;
 			index %= maxSize;
 			curr = data[index];
 			counter++;
 		}
 
-		return nullptr;
+		return ret;
 
 	}
 
@@ -136,14 +141,15 @@ public:
 		}
 	}
 
-	virtual T* find(T* item) {
+	virtual int find(T* item) {
 		int index = hash(*item);
 		int counter = 0;  //to prevent infinite loop
 		HashNode<T>* curr;
+		int ret = 1;
 
 		//Not found, and no value has ever been inserted with this particular key
 		if (data[index] == nullptr) {
-			return nullptr;
+			return 0;
 		}
 
 
@@ -152,21 +158,22 @@ public:
 		while (curr != nullptr && curr != deleteMarker) {
 
 			if (counter == maxSize) { //Was not able to find, made a complete loop
-				return nullptr;
+				return ret;
 			}
 
 			if (*(curr->data) == *item) { //item found
 				T* tempData = curr->data;
-				return tempData;
+				return ret;
 			}
 
+			ret++;
 			index += 1;
 			index %= maxSize;
 			curr = data[index];
 			counter++;
 		}
 
-		return nullptr;
+		return ret;
 
 	}
 
@@ -182,8 +189,7 @@ public:
 
 protected:
 	int hash(int key) {
-
-		return (key % (maxSize - size));
+		return (abs(key) % (maxSize+1 - size));   //+1 to make sure division by zero doesn't occur
 	}
 
 	virtual void init() {

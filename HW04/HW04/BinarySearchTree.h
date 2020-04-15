@@ -89,24 +89,30 @@ public:
 	};
 	~BinarySearchTree() {};
 
-	Node<T>* find(T val) {
+	int find(T val) {
+
+		int ret = 1;
+
 		if (root == nullptr) {
-			return nullptr;
+			return ret;
 		}
 		else {
-			return findNode(root, val);
+			findNode(root, val, ret);
+			return ret;
 		}
 	}
 
-	void insert(T val) {
+	int insert(T val) {
+
+		int ret = 0;
 
 		if (root == nullptr) {
 			root = new Node<T>(val);
 			size++;
-			return;
+			return 1;
 		}
 
-		Node<T>* parent = findNodeToInsert(root, val);
+		Node<T>* parent = findNodeToInsert(root, val, ret);
 		Node<T>* newNode = new Node<T>(val);
 
 		if (newNode->data < parent->data) {
@@ -118,6 +124,8 @@ public:
 
 		size++;
 		balanceTree();
+
+		return ret;
 	}
 
 	// Remove method before submitting code. Only for debugging
@@ -167,21 +175,23 @@ public:
 		return arr;
 	}
 
-	Node<T>* remove(T val) {
+	int remove(T val) {
+
+		int ret = 0;
 
 		Node<T>* parent;
 		Node<T>* removedNode;
 		DataPack<T>* dat = new DataPack<T>();
 		dat->node = root;   //start researching from root
 
-		dat = findNode(dat,val);
+		dat = findNode(dat,val,ret);
 		
 		removedNode = dat->node;
 		parent = dat->parentNode;
 
 		//If Element couldn't be found, return nullptr
 		if (removedNode == nullptr) {
-			return nullptr;
+			return ret;
 		}
 
 		if (removedNode == root) {
@@ -192,7 +202,7 @@ public:
 
 				if (removedNode->rightChild != nullptr) {
 
-					Node<T>* insertionPoint = findNodeToInsert(root,removedNode->rightChild->data);
+					Node<T>* insertionPoint = findNodeToInsert(root,removedNode->rightChild->data,ret);
 
 					if (removedNode->rightChild->data < insertionPoint->data) {
 						insertionPoint->leftChild = removedNode->rightChild;
@@ -216,7 +226,7 @@ public:
 			parent->leftChild = removedNode->leftChild;
 
 			if (removedNode->rightChild != nullptr) {
-				Node<T>* insertionPoint = findNodeToInsert(parent, removedNode->rightChild->data);
+				Node<T>* insertionPoint = findNodeToInsert(parent, removedNode->rightChild->data,ret);
 
 				if (removedNode->rightChild->data < insertionPoint->data) {
 					insertionPoint->leftChild = removedNode->rightChild;
@@ -231,7 +241,7 @@ public:
 			parent->rightChild = removedNode->rightChild;
 
 			if (removedNode->leftChild != nullptr) {
-				Node<T>* insertionPoint = findNodeToInsert(parent, removedNode->leftChild->data);
+				Node<T>* insertionPoint = findNodeToInsert(parent, removedNode->leftChild->data,ret);
 
 				if (removedNode->leftChild->data < insertionPoint->data) {
 					insertionPoint->leftChild = removedNode->leftChild;
@@ -244,14 +254,15 @@ public:
 
 		size--;
 		balanceTree();
-		return removedNode;
+		return ret;
 
 	}
 
 private:
 
 	// Find a node with a given value. This accepts and returns a datapack since it also keeps track of the parent. This function is recursive
-	DataPack<T>* findNode(DataPack<T>* data, T val) {
+	DataPack<T>* findNode(DataPack<T>* data, T val, int& ret) {
+		ret++;
 		if (data->node->data == val) {
 			return data;
 		}
@@ -265,7 +276,7 @@ private:
 					return data;
 				}
 				data->node = curr->leftChild;
-				return findNode(data, val);
+				return findNode(data, val,ret);
 
 			}
 			else {
@@ -274,14 +285,16 @@ private:
 					return data;
 				}
 				data->node = curr->rightChild;
-				return findNode(data, val);
+				return findNode(data, val,ret);
 			}
 		}
 	}
 
 
 // Find the node with a given value. This function is recursive
-	Node<T>* findNode(Node<T>* curr, T val) {
+	Node<T>* findNode(Node<T>* curr, T val, int& ret) {
+
+		ret++;
 
 		if (curr->data == val) {
 			return curr;
@@ -291,36 +304,38 @@ private:
 				if (curr->leftChild == nullptr) {
 					return nullptr;
 				}
-				return findNode(curr->leftChild, val);
+				return findNode(curr->leftChild, val,ret);
 
 			}
 			else {
 				if (curr->rightChild == nullptr) {
 					return nullptr;
 				}
-				return findNode(curr->rightChild, val);
+				return findNode(curr->rightChild, val,ret);
 			}
 		}
 	}
 
 // Find the parent node after which a new node should be inserted. This function is recursive
-	Node<T>* findNodeToInsert(Node<T>* curr,T val) {
+	Node<T>* findNodeToInsert(Node<T>* curr,T val, int& ret) {
 		if (curr->data == val) {
 			throw ValueAlreadyFoundException();
 		}
+
+		ret++;
 
 		if (val < curr->data) {
 			if (curr->leftChild == nullptr) {
 				return curr;
 			}
-			return findNodeToInsert(curr->leftChild, val);
+			return findNodeToInsert(curr->leftChild, val, ret);
 
 		}
 		else {
 			if (curr->rightChild == nullptr) {
 				return curr;
 			}
-			return findNodeToInsert(curr->rightChild, val);
+			return findNodeToInsert(curr->rightChild, val,ret);
 		}
 
 	}
@@ -377,18 +392,5 @@ private:
 		return root;
 
 	}
-
-	//Recursive function to delete all nodes
-	/*void makeEmpty(Node<T>* curr) {
-		if (curr->leftChild != nullptr) {
-			makeEmpty(curr->leftChild);
-		}
-
-		if (curr->rightChild != nullptr) {
-			makeEmpty(curr->rightChild);
-		}
-
-		delete curr;
-	}*/
 
 };
