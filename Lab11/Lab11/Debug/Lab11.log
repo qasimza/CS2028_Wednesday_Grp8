@@ -1,0 +1,5 @@
+﻿  main.cpp
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab11\Lab11\Graph.h(48): warning C4715: 'Graph::hasEdge': not all control paths return a value
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab11\Lab11\Graph.h(57): warning C4715: 'Graph::outEdges': not all control paths return a value
+C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab11\Lab11\Graph.h(75): warning C4715: 'Graph::inEdges': not all control paths return a value
+  Lab11.vcxproj -> C:\Users\alanj\source\repos\CS2028_Wednesday_Grp8\Lab11\Debug\Lab11.exe
