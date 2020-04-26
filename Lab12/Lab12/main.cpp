@@ -15,5 +15,39 @@
 	Your test should use the chrono library’s high_resolution_clock class.  
 	The following example of how to do this in nanoseconds is found on Stack Overflow. 
 	Only the time in the 7 sort functions should be measured.
-
 */
+
+#include <iostream>
+#include <chrono>
+
+using namespace std;
+
+template <class T>
+void bubbleSort(T* array, int size) {
+
+}
+
+template <class T>
+void insertionSort(T* array, int size) {
+
+}
+
+template <class T>
+void mergeSort(T* array, int size) {
+
+}
+
+template <class T>
+void quickSort(T* array, int size) {
+
+}
+
+template <class T>
+void radixSort(T* array, int size) {
+
+}
+
+
+int main(){
+	return 0;
+}
