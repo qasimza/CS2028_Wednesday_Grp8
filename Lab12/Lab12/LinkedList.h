@@ -10,14 +10,112 @@
 	direction and will display the sorted students on the screen.
 */
 
-template <class T>
+#include <iostream>
 
-class Node { 
-	Node* prev, *next;
+template <class T>
+struct Node 
+{ 
+	Node* next;
 	T data;
+
+	Node<T>(T data) { this->data = data; }
 };
 
-class LinkedList {
+template <class T>
+class LinkedList 
+{
+	private:
+		Node<T>* head;
+		bool isAsc;
+		int len;
+
+	public:
+		LinkedList() { head = nullptr; isAsc = false; len = 0; }
+		LinkedList(bool isAsc) { head = nullptr; this->isAsc = isAsc; len = 0; }
+
+		// Array to Linked List Constructor
+		LinkedList(T** arr, int arrSize, bool isAsc) 
+		{ 
+			head = nullptr; 
+			this->isAsc = isAsc; 
+			len = 0; 
+			
+			if (isAsc)
+			{
+				for (int i = 0; i < arrSize; i++)
+				{
+					addItem(new T(*arr[i]));
+				}
+			}
+
+			else
+			{
+				for (int i = arrSize-1; i >= 0; i--)
+				{
+					addItem(new T(*arr[i]));
+				}
+			}
+		}
+
+		//	Linked List to Array Helper Function
+		T** toArray()
+		{
+			T** returnArr = new T*[size()];
+			Node<T>* curr = head;
+			for (int i = 0; i < size(); i++)
+			{
+				returnArr[i] = &curr->data;
+				curr = curr->next;
+			}
+			return returnArr;
+		}
+
+		// Error Classes
+		class ListUnderFlow {};
+		class OutOfBounds {};
+		class NonUniqueKey {};
+
+		// Add Item Function
+		void addItem(T* item) {
+			Node<T>* newNode = new Node<T>(*item);
+			if (head == nullptr) head = newNode;
+			else 
+			{
+				newNode->next = head;
+				head = newNode;
+			}
+			len++;
+		}
+
+		// Display Function
+		void display()
+		{
+			Node<T>* curr = head;
+			for (int i = 0; i < len; i++)
+			{
+				cout << curr->data << endl;
+				curr = curr->next;
+			}
+		}
+
+		// Size Getter Function
+		int size() { return len; }
+
+
+		// Destructor
+		~LinkedList() 
+		{
+			Node<T>* curr = head;
+			for (int i = 0; i < len; i++)
+			{
+				head = head->next;
+				delete curr;
+				curr = head;
+				len--;
+			}
+			head = nullptr;
+		}
+
 
 };
 

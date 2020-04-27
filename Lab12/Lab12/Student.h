@@ -16,8 +16,18 @@ using namespace std;
 
 class Student
 {
-	string firstName;
-	string lastName;
-	int MNumber;
+	private:
+		string firstName;
+		string lastName;
+		int MNumber;
+		string key;
+
+	public:
+		Student() {};
+		Student(string, string, int);
+
+		bool operator<(Student);
+		bool operator>(Student);
+		bool operator==(Student);
 };
 
