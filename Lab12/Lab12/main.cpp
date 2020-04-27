@@ -135,17 +135,12 @@ T** mergeSort(T** data, int size) {
 
 /*******************************************************************
 * QUICK SORT - Always picks last element of the array as pivot    *
-* 
 *******************************************************************/
-
-
 template <class T>
 T** quickSort(T** data, int start, int size) {
 	if (start < size - 1) {
 		//Partitioning the array
 		T* pivot = data[size - 1];
-		display(data, size);
-		cout <<" Start " << start << " Size " << size << " Pivot " << *pivot << endl;
 		int i = start - 1;
 		for (int j = start; j < size - 1; j++) {
 			T* curr = data[j];
@@ -161,14 +156,48 @@ T** quickSort(T** data, int start, int size) {
 		swap(next, pivot);
 		//Sorting partitions
 		quickSort(data, start, i);
-		quickSort(data, i+1, size);
+		quickSort(data, i+2, size);
 	}
 	return data;
 }
 
 template <class T>
-T** countingSort(T** array, int size) {
+T** countingSort(T** data, const int size) {
+	
+	//Finding maximum and minimum elements
+	T min = *(data[0]);
+	T max = *(data[0]);
+	for (int i = 0; i < size; i++) {
+		T* curr = data[i];
+		min = min < *curr ? min : *curr;
+		max = max > *curr ? max : *curr;
+	}
 
+	//memset from : http://www.cplusplus.com/reference/cstring/memset/ (will set each element to 0)
+	int *count = new int[max+1];
+	memset(count, 0, (max + 1) * sizeof(int));
+	
+	//Caculating frequency of each element in data
+	for (int i = 0; i < size; i++) {
+		T* curr = data[i];
+		count[*curr - min]++;
+	}
+
+	cout << endl;
+	//Calculating cumulative frequency (accumulating counts)
+	for (int i = 1; i < max+1; i++) {
+		count[i] = count[i] + count[i - 1];
+	}
+
+	//Creating sorted array
+	T** sorted = new T * [size];
+	for (int i = size - 1; i >= 0; i--) {
+		T* curr = data[i];
+		sorted[count[*curr]-1] = curr;
+		count[*curr]--;
+		
+	}
+	return sorted;
 }
 
 template <class T>
@@ -187,9 +216,9 @@ int main() {
 		cout << *myArray[i] << " ";
 	}
 	cout << endl;
-	quickSort(myArray, 0, 10);
+	display(countingSort(myArray, 10), 10);
 	
-	display(myArray, 10);
+
 
 	return 0;
 }
