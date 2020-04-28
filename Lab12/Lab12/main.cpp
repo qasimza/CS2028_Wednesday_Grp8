@@ -27,6 +27,9 @@ using namespace std;
 
 typedef std::chrono::high_resolution_clock Clock;
 
+static string THIN_LINE = "--------------------------------------------------------------------------------------------------\n";
+static string THICK_LINE = "==================================================================================================\n";
+
 // Swap function  
 template <class T>
 void swap(T* a, T* b)
@@ -35,6 +38,7 @@ void swap(T* a, T* b)
 	*a = *b;
 	*b = t;
 }
+
 //Display Function
 template < class T>
 void display(T** myArray, const int size) {
@@ -42,7 +46,6 @@ void display(T** myArray, const int size) {
 		cout << *myArray[i] << " ";
 	}
 }
-
 
 // Completed
 template<class T>
@@ -135,7 +138,6 @@ T** mergeSort(T** data, int size) {
 	T** res = merge(firstSorted, size1, secondSorted, size2);
 	return res;
 }	
-
 
 /*******************************************************************
 * QUICK SORT - Always picks last element of the array as pivot    *
@@ -248,10 +250,8 @@ T** radixSort(T** data, int size) {
 	return data;
 }
 
-int main() {
+int test1() {
 
-	string THIN_LINE = "--------------------------------------------------------------------------------------------------\n";
-	string THICK_LINE = "==================================================================================================\n";
 	int arraySizes[6] = {10, 100, 500, 5000, 25000, 100000};
 	double averageTimes[6][6];
 	
@@ -441,5 +441,37 @@ int main() {
 		}
 		cout << endl << THIN_LINE;
 	}
+	return 0;
+}
+
+int main() {
+	int choice = 0;
+	do {
+		cout << THICK_LINE << "MENU\n" <<
+			"1. Run Prelimary Tests (Allow enough time for these\n" <<
+			"2. Student Linked List - Ascending Order\n" <<
+			"3. Student Linked List - Descending Order\n" <<
+			"4. Quit" << endl;
+		cout << THIN_LINE << "Enter choice: ";
+		cin >> choice;
+		switch (choice) {
+		case 1: 
+			cout << THICK_LINE << "RUNNING PRELIMNARY TESTS" << endl << "This may take time..." << endl;;
+			std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+			test1();
+			break;
+		case 2:
+			cout << THICK_LINE << "STUDENT LINKED LIST - Ascending Order" << endl;
+			break;
+		case 3:
+			cout << THICK_LINE << "STUDENT LINKED LIST - Descending Order" << endl;
+			break;
+		case 4: 
+			cout << THICK_LINE << "Quittng..." << endl;
+			break;
+		default:
+			cout << THICK_LINE << "Incorrect Choice" << endl;
+		}
+	} while (choice!= 4);
 	return 0;
 }
