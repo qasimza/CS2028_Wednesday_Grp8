@@ -197,12 +197,52 @@ T** countingSort(T** data, const int size) {
 		count[*curr]--;
 		
 	}
-	return sorted;
+
+	//Copy sorted values onto previous array
+	for (i = 0; i < size; i++)
+		data[i] = sorted[i];
+
+	return data;
 }
 
 template <class T>
-T** radixSort(T** array, int size) {
+T** radixSort(T** data, int size) {
+	
+	int i = 0;
+	
+	//Calculate element with the maximum number of digits 
+	T max = *(data[0]);
+	for (int i = 0; i < size; i++) {
+		T* curr = data[i];
+		max = max > * curr ? max : *curr;
+	}
 
+	//Perform Radix Sort by doing Counting Sort for each digit in max
+	for (int e = 1; max/e>0; e*=10){	
+		
+		T** sorted = new T*[size];
+		int* count = new int[10];
+		memset(count, 0, (10) * sizeof(int));
+
+		for (i = 0; i < size; i++) {
+			T* curr = data[i];
+			count[(*curr / e) % 10]++;
+		}
+
+		for (i = 1; i < 10; i++)
+			count[i] += count[i - 1];
+
+		for (i = size - 1; i >= 0; i--)	{
+			T* curr = data[i];
+			sorted[count[(*curr / e) % 10] - 1] = data[i];
+			count[(*curr / e) % 10]--;
+		}
+
+		// Copy sorted array onto data
+		for (i = 0; i < size; i++)
+			data[i] = sorted[i];
+	}
+	return data;
 }
 
 
@@ -212,13 +252,12 @@ int main() {
 		myArray[i] = new int(rand() % 20);
 	}
 
+	radixSort(myArray, 10);
+
 	for (int i = 0; i < 10; i++) {
 		cout << *myArray[i] << " ";
 	}
 	cout << endl;
-	display(countingSort(myArray, 10), 10);
 	
-
-
 	return 0;
 }
