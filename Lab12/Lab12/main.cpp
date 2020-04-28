@@ -20,8 +20,12 @@
 #include <iostream>
 #include <chrono>
 #include <cstdlib>
+#include <thread>
+#include <iomanip>
 
 using namespace std;
+
+typedef std::chrono::high_resolution_clock Clock;
 
 // Swap function  
 template <class T>
@@ -34,7 +38,7 @@ void swap(T* a, T* b)
 //Display Function
 template < class T>
 void display(T** myArray, const int size) {
-	for (int i = 0; i < 10; i++) {
+	for (int i = 0; i < size; i++) {
 		cout << *myArray[i] << " ";
 	}
 }
@@ -183,7 +187,6 @@ T** countingSort(T** data, const int size) {
 		count[*curr - min]++;
 	}
 
-	cout << endl;
 	//Calculating cumulative frequency (accumulating counts)
 	for (int i = 1; i < max+1; i++) {
 		count[i] = count[i] + count[i - 1];
@@ -199,7 +202,7 @@ T** countingSort(T** data, const int size) {
 	}
 
 	//Copy sorted values onto previous array
-	for (i = 0; i < size; i++)
+	for (int i = 0; i < size; i++)
 		data[i] = sorted[i];
 
 	return data;
@@ -245,19 +248,198 @@ T** radixSort(T** data, int size) {
 	return data;
 }
 
-
 int main() {
-	int** myArray = new int* [10];
-	for (int i = 0; i < 10; i++) {
-		myArray[i] = new int(rand() % 20);
-	}
 
-	radixSort(myArray, 10);
-
-	for (int i = 0; i < 10; i++) {
-		cout << *myArray[i] << " ";
-	}
-	cout << endl;
+	string THIN_LINE = "--------------------------------------------------------------------------------------------------\n";
+	string THICK_LINE = "==================================================================================================\n";
+	int arraySizes[6] = {10, 100, 500, 5000, 25000, 100000};
+	double averageTimes[6][6];
 	
+	cout << THICK_LINE << "TESTING BUBBLE SORT\n" << THIN_LINE;
+	for (int i = 0; i < 6; i++) { 
+		cout << "Array Size: " << arraySizes[i] << endl;
+		double totalTime = 0;
+		double time;
+		cout << "\nTest Run Times (in ms): " << endl;
+		for (int num = 0; num < 10; num++) {
+			//Generate random array
+			srand(0);
+			int** myArray = new int* [arraySizes[i]];
+			for (int j = 0; j < arraySizes[i]; j++) {
+				myArray[j] = new int(rand() % (arraySizes[i] * 2));
+			}
+			auto start = Clock::now();
+			bubbleSort(myArray, arraySizes[i]);
+			auto end = Clock::now();
+			time = double(chrono::duration_cast<chrono::nanoseconds>(end - start).count()) / 1000000;
+			cout << time << "\t\t";
+			totalTime += time;
+			if (num == 4)
+				cout << endl;
+		}
+		cout << endl << "\nTotal Time: " << totalTime << " ms,  Average Time: " << (totalTime / 10) << " ms" << endl;
+		std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+		averageTimes[0][i] = totalTime / 10;
+		cout << THIN_LINE;
+	}
+
+	cout << THICK_LINE << "TESTING INSERTION SORT\n" << THIN_LINE;
+	for (int i = 0; i < 6; i++) {
+		cout << "Array Size: " << arraySizes[i] << endl;
+		double totalTime = 0;
+		double time;
+		cout << "\nTest Run Times (in ms): " << endl;
+		for (int num = 0; num < 10; num++) {
+			//Generate random array
+			srand(0);
+			int** myArray = new int* [arraySizes[i]];
+			for (int j = 0; j < arraySizes[i]; j++) {
+				myArray[j] = new int(rand() % (arraySizes[i] * 2));
+			}
+			auto start = Clock::now();
+			insertionSort(myArray, arraySizes[i]);
+			auto end = Clock::now();
+			time = double(chrono::duration_cast<chrono::nanoseconds>(end - start).count()) / 1000000;
+			cout << time << "\t\t";
+			totalTime += time;
+			if (num == 4)
+				cout << endl;
+		}
+		cout << endl << "\nTotal Time: " << totalTime << " ms,  Average Time: " << (totalTime / 10) << " ms" << endl;
+		std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+		averageTimes[1][i] = totalTime / 10;
+		cout << THIN_LINE;
+	}
+
+	cout << THICK_LINE << "TESTING MERGE SORT\n" << THIN_LINE;
+	for (int i = 0; i < 6; i++) {
+		cout << "Array Size: " << arraySizes[i] << endl;
+		double totalTime = 0;
+		double time;
+		cout << "\nTest Run Times (in ms): " << endl;
+		for (int num = 0; num < 10; num++) {
+			//Generate random array
+			srand(0);
+			int** myArray = new int* [arraySizes[i]];
+			for (int j = 0; j < arraySizes[i]; j++) {
+				myArray[j] = new int(rand() % (arraySizes[i] * 2));
+			}
+			auto start = Clock::now();
+			mergeSort(myArray, arraySizes[i]);
+			auto end = Clock::now();
+			time = double(chrono::duration_cast<chrono::nanoseconds>(end - start).count()) / 1000000;
+			cout << time << "\t\t";
+			totalTime += time;
+			if (num == 4)
+				cout << endl;
+		}
+		cout << endl << "\nTotal Time: " << totalTime << " ms,  Average Time: " << (totalTime / 10) << " ms" << endl;
+		std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+		averageTimes[2][i] = totalTime / 10;
+		cout << THIN_LINE;
+	}
+
+	cout << THICK_LINE << "TESTING QUICK SORT\n" << THIN_LINE;
+	for (int i = 0; i < 6; i++) {
+		cout << "Array Size: " << arraySizes[i] << endl;
+		double totalTime = 0;
+		double time;
+		cout << "\nTest Run Times (in ms): " << endl;
+		for (int num = 0; num < 10; num++) {
+			//Generate random array
+			srand(0);
+			int** myArray = new int* [arraySizes[i]];
+			for (int j = 0; j < arraySizes[i]; j++) {
+				myArray[j] = new int(rand() % (arraySizes[i] * 2));
+			}
+			auto start = Clock::now();
+			quickSort(myArray, 0, arraySizes[i]);
+			auto end = Clock::now();
+			time = double(chrono::duration_cast<chrono::nanoseconds>(end - start).count()) / 1000000;
+			cout << time << "\t\t";
+			totalTime += time;
+			if (num == 4)
+				cout << endl;
+		}
+		cout << endl << "\nTotal Time: " << totalTime << " ms,  Average Time: " << (totalTime / 10) << " ms" << endl;
+		averageTimes[3][i] = totalTime / 10;
+		std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+		cout << THIN_LINE;
+
+	}
+
+	cout << THICK_LINE << "TESTING COUNTING SORT\n" << THIN_LINE;
+	for (int i = 0; i < 6; i++) {
+		cout << "Array Size: " << arraySizes[i] << endl;
+		double totalTime = 0;
+		double time;
+		cout << "\nTest Run Times (in ms): " << endl;
+		for (int num = 0; num < 10; num++) {
+			//Generate random array
+			srand(0);
+			int** myArray = new int* [arraySizes[i]];
+			for (int j = 0; j < arraySizes[i]; j++) {
+				myArray[j] = new int(rand() % (arraySizes[i] * 2));
+			}
+			auto start = Clock::now();
+			countingSort(myArray, arraySizes[i]);
+			auto end = Clock::now();
+			time = double(chrono::duration_cast<chrono::nanoseconds>(end - start).count()) / 1000000;
+			cout << time << "\t\t";
+			totalTime += time;
+			if (num == 4)
+				cout << endl;
+		}
+		cout << endl << "\nTotal Time: " << totalTime << " ms,  Average Time: " << (totalTime / 10) << " ms" << endl;
+		averageTimes[4][i] = totalTime / 10;
+		std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+		cout << THIN_LINE;
+
+	}
+
+	cout << THICK_LINE << "TESTING RADIX SORT\n" << THIN_LINE;
+	for (int i = 0; i < 6; i++) {
+		cout << "Array Size: " << arraySizes[i] << endl;
+		double totalTime = 0;
+		double time;
+		cout << "\nTest Run Times (in ms): " << endl;
+		for (int num = 0; num < 10; num++) {
+			//Generate random array
+			srand(0);
+			int** myArray = new int* [arraySizes[i]];
+			for (int j = 0; j < arraySizes[i]; j++) {
+				myArray[j] = new int(rand() % (arraySizes[i] * 2));
+			}
+			auto start = Clock::now();
+			radixSort(myArray, arraySizes[i]);
+			auto end = Clock::now();
+			time = double(chrono::duration_cast<chrono::nanoseconds>(end - start).count()) / 1000000;
+			cout << time << "\t\t";
+			totalTime += time;
+			if (num == 4)
+				cout << endl;
+		}
+		cout << endl << "\nTotal Time: " << totalTime << " ms,  Average Time: " << (totalTime / 10) << " ms" << endl;
+		std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+		averageTimes[5][i] = totalTime / 10;
+		cout << THIN_LINE;
+	}
+	
+	cout << THICK_LINE;
+
+	cout << "DATA SUMMARY" << endl;
+	cout << THIN_LINE << left << setw(30) << "Number of Array Elements";
+	for (int i = 0; i < 6; i++) {
+		cout << left << setw(12) << setfill(' ') << arraySizes[i];
+	}
+	cout << endl << THIN_LINE;
+	string sortType[6] = { "Bubble","Insertion","Merge","Quick","Counting","Radix" };
+	for (int row = 0; row < 6; row++) {
+		cout << left << setw(30) << setfill(' ') << sortType[row];
+		for (int column = 0; column < 6; column++) {
+			cout << left << setw(12) << setfill(' ') << averageTimes[row][column];
+		}
+		cout << endl << THIN_LINE;
+	}
 	return 0;
 }
