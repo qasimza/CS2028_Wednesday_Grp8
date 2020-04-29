@@ -16,7 +16,7 @@ using namespace std;
 
 class Student
 {
-	private:
+	public:
 		string firstName;
 		string lastName;
 		int MNumber;
@@ -29,5 +29,9 @@ class Student
 		bool operator<(Student);
 		bool operator>(Student);
 		bool operator==(Student);
+		operator std::string() const {
+			string res = firstName + " " + lastName + " " + to_string(MNumber);
+			return res;
+		}
 };
 

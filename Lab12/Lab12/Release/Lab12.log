@@ -1,7 +1,57 @@
-﻿  main.cpp
-  Generating code
-  1 of 140 functions ( 0.7%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
-  Finished generating code
-  Lab12.vcxproj -> C:\Users\Zaina\source\repos\qasimza\CS2028_Wednesday_Grp8\Lab12\Release\Lab12.exe
+﻿  Generating code
+LINK : fatal error C1001: An internal error has occurred in the compiler.
+  (compiler file 'd:\agent\_work\1\s\src\vctools\Compiler\Utc\src\p2\main.c', line 160)
+   To work around this problem, try simplifying or changing the program near the locations listed above.
+  Please choose the Technical Support command on the Visual C++ 
+   Help menu, or open the Technical Support help file for more information
+    link!InvokeCompilerPass()+0x2e3f2
+    link!InvokeCompilerPass()+0x21eff
+    link!InvokeCompilerPass()+0x21e20
+    link!InvokeCompilerPass()+0x2d4a0
+    link!CloseTypeServerPDB()+0x2f8bf
+    link!CloseTypeServerPDB()+0x2f805
+    link!CloseTypeServerPDB()+0x6664
+    link!CloseTypeServerPDB()+0x623f
+    link!InvokeCompilerPassW()+0xd55
+    link!InvokeCompilerPassW()+0x2c4
+  
+LINK : fatal error C1001: An internal error has occurred in the compiler.
+  (compiler file 'd:\agent\_work\1\s\src\vctools\Compiler\Utc\src\p2\main.c', line 160)
+   To work around this problem, try simplifying or changing the program near the locations listed above.
+  Please choose the Technical Support command on the Visual C++ 
+   Help menu, or open the Technical Support help file for more information
+    link!InvokeCompilerPass()+0x2e3f2
+    link!InvokeCompilerPass()+0x21eff
+    link!InvokeCompilerPass()+0x21e20
+    link!InvokeCompilerPass()+0x2d4a0
+    link!CloseTypeServerPDB()+0x2f8bf
+    link!CloseTypeServerPDB()+0x2f805
+    link!CloseTypeServerPDB()+0x6664
+    link!CloseTypeServerPDB()+0x623f
+    link!InvokeCompilerPassW()+0xd55
+    link!InvokeCompilerPassW()+0x2c4
+  
+  
+LINK : fatal error LNK1000: Internal error during IMAGE::BuildImage
+  
+    Version 14.23.28106.4
+  
+    ExceptionCode            = C0000005
+    ExceptionFlags           = 00000000
+    ExceptionAddress         = 7B883C0A (7B3E0000) "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\bin\HostX86\x86\c2.dll"
+    NumberParameters         = 00000002
+    ExceptionInformation[ 0] = 00000000
+    ExceptionInformation[ 1] = 00000000
+  
+  CONTEXT:
+    Eax    = 00000000  Esp    = 0115E7F8
+    Ebx    = 00000000  Ebp    = 0115E808
+    Ecx    = 00001505  Esi    = 00000000
+    Edx    = 00000000  Edi    = 00000000
+    Eip    = 7B883C0A  EFlags = 00010246
+    SegCs  = 00000023  SegDs  = 0000002B
+    SegSs  = 0000002B  SegEs  = 0000002B
+    SegFs  = 00000053  SegGs  = 0000002B
+    Dr0    = 00000000  Dr3    = 00000000
+    Dr1    = 00000000  Dr6    = 00000000
+    Dr2    = 00000000  Dr7    = 00000000

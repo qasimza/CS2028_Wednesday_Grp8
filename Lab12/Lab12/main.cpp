@@ -22,6 +22,8 @@
 #include <cstdlib>
 #include <thread>
 #include <iomanip>
+#include "LinkedList.h"
+#include "Student.h"
 
 using namespace std;
 
@@ -43,7 +45,7 @@ void swap(T* a, T* b)
 template < class T>
 void display(T** myArray, const int size) {
 	for (int i = 0; i < size; i++) {
-		cout << *myArray[i] << " ";
+		cout << (string)(*myArray[i]) << endl;
 	}
 }
 
@@ -250,6 +252,61 @@ T** radixSort(T** data, int size) {
 	return data;
 }
 
+LinkedList<Student> buildRandomList(const int size) {
+	long seed = 123456789;
+	string letters = "abcdefghijklmnopqrstuvwxyz";
+	int firstNameRange[2] = {5,10};
+	int lastNameRange[2] = {7,15};
+	int mNumberRange = 900000 - 1;
+	int mNumberStartingValue = 100000;
+
+	Student** students = new Student*[size];
+
+	srand(seed);
+
+	for (int i = 0; i < size;i++) {
+		string firstName = "";
+		string lastName = "";
+		int mNumber;
+
+		mNumber = rand() % mNumberRange + mNumberStartingValue;
+
+		while (firstName.size() < firstNameRange[1]) {
+			firstName.append(letters.substr(rand()%26,1));
+
+			if (firstName.size() >= firstNameRange[1]) {
+				break;
+			}
+
+			if (firstName.size() >= firstNameRange[0]) {
+				if (rand() % 2 == 0) {
+					break;
+				}
+			}
+		}
+
+		while (lastName.size() < lastNameRange[1]) {
+			lastName.append(letters.substr(rand() % 26, 1));
+
+			if (lastName.size() >= lastNameRange[1]) {
+				break;
+			}
+
+			if (lastName.size() >= lastNameRange[0]) {
+				if (rand() % 2 == 0) {
+					break;
+				}
+			}
+		}
+
+		students[i] = new Student(firstName, lastName, mNumber);
+
+	}
+
+	return LinkedList<Student>(students,true,size);
+
+}
+
 int test1() {
 
 	int arraySizes[6] = {10, 100, 500, 5000, 25000, 100000};
@@ -446,12 +503,14 @@ int test1() {
 
 int main() {
 	int choice = 0;
+	int studentsListSize = 50;
 	do {
 		cout << THICK_LINE << "MENU\n" <<
 			"1. Run Prelimary Tests (Allow enough time for these\n" <<
-			"2. Student Linked List - Ascending Order\n" <<
-			"3. Student Linked List - Descending Order\n" <<
-			"4. Quit" << endl;
+			"2. Student Linked List - Quick sort\n" <<
+			"3. Student Linked List - Bubblesort \n" <<
+			"4. Student Linked List - Insertion sort\n" <<
+			"5. Quit" << endl;
 		cout << THIN_LINE << "Enter choice: ";
 		cin >> choice;
 		switch (choice) {
@@ -460,18 +519,125 @@ int main() {
 			std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 			test1();
 			break;
-		case 2:
-			cout << THICK_LINE << "STUDENT LINKED LIST - Ascending Order" << endl;
+
+		case 2: {
+
+			cout << THICK_LINE << endl;
+
+			int sortingOrder, keyMode;
+
+			cout << "Enter 0 for ascending order, otherwise for descending order" << endl;
+			cin >> sortingOrder;
+			cout << "Enter 0 to sort by firstName, 1 to sort by lastName, other wise to sort by mNumber" << endl;
+			cin >> keyMode;
+
+			if (keyMode > 1) {
+				keyMode = 2;
+			}
+
+			LinkedList<Student> data = buildRandomList(studentsListSize);
+			cout << "original : " << endl;
+			data.display();
+			cout << endl;
+			
+			Student** sorted = quickSort(data.toArray(keyMode), 0, studentsListSize);
+
+			if (sortingOrder == 0) {
+				cout << "asc" << endl;
+				LinkedList<Student> sortedList = LinkedList<Student>(sorted, true, studentsListSize);
+				cout << "sorted: " << endl;
+				sortedList.display();
+				cout << endl;
+			}
+
+			else {
+				LinkedList<Student> sortedList = LinkedList<Student>(sorted, false, studentsListSize);
+				cout << "sorted: " << endl;
+				sortedList.display();
+				cout << endl;
+			}
+
 			break;
-		case 3:
-			cout << THICK_LINE << "STUDENT LINKED LIST - Descending Order" << endl;
+		}
+		case 3: {
+			cout << THICK_LINE << endl;
+
+			int sortingOrder, keyMode;
+
+			cout << "Enter 0 for ascending order, otherwise for descending order" << endl;
+			cin >> sortingOrder;
+			cout << "Enter 0 to sort by firstName, 1 to sort by lastName, other wise to sort by mNumber" << endl;
+			cin >> keyMode;
+
+			if (keyMode > 1) {
+				keyMode = 2;
+			}
+
+			LinkedList<Student> data = buildRandomList(studentsListSize);
+			cout << "original : " << endl;
+			data.display();
+			cout << endl;
+
+			Student** sorted = bubbleSort(data.toArray(keyMode), studentsListSize);
+
+			if (sortingOrder == 0) {
+				LinkedList<Student> sortedList = LinkedList<Student>(sorted, true, studentsListSize);
+				cout << "sorted: " << endl;
+				sortedList.display();
+				cout << endl;
+			}
+
+			else {
+				LinkedList<Student> sortedList = LinkedList<Student>(sorted, false, studentsListSize);
+				cout << "sorted: " << endl;
+				sortedList.display();
+				cout << endl;
+			}
+
 			break;
-		case 4: 
-			cout << THICK_LINE << "Quittng..." << endl;
+		}
+		case 4: {
+
+			cout << THICK_LINE << endl;
+
+			int sortingOrder, keyMode;
+
+			cout << "Enter 0 for ascending order, otherwise for descending order" << endl;
+			cin >> sortingOrder;
+			cout << "Enter 0 to sort by firstName, 1 to sort by lastName, other wise to sort by mNumber" << endl;
+			cin >> keyMode;
+
+			if (keyMode > 1) {
+				keyMode = 2;
+			}
+
+			LinkedList<Student> data = buildRandomList(studentsListSize);
+			cout << "original : " << endl;
+			data.display();
+			cout << endl;
+
+			Student** sorted = insertionSort(data.toArray(keyMode), studentsListSize);
+
+			if (sortingOrder == 0) {
+				cout << "asc" << endl;
+				LinkedList<Student> sortedList = LinkedList<Student>(sorted, true, studentsListSize);
+				cout << "sorted: " << endl;
+				sortedList.display();
+				cout << endl;
+			}
+
+			else {
+				LinkedList<Student> sortedList = LinkedList<Student>(sorted, false, studentsListSize);
+				cout << "sorted: " << endl;
+				sortedList.display();
+				cout << endl;
+			}
+
 			break;
+		}
 		default:
 			cout << THICK_LINE << "Incorrect Choice" << endl;
 		}
-	} while (choice!= 4);
+	} while (choice!= 5);
 	return 0;
 }

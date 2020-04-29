@@ -11,7 +11,9 @@
 */
 
 #include <iostream>
+#include <string>
 
+using namespace std;
 template <class T>
 struct Node 
 { 
@@ -26,39 +28,39 @@ class LinkedList
 {
 	private:
 		Node<T>* head;
-		bool isAsc;
+		//bool isAsc;
 		int len;
 
 	public:
-		LinkedList() { head = nullptr; isAsc = false; len = 0; }
-		LinkedList(bool isAsc) { head = nullptr; this->isAsc = isAsc; len = 0; }
+		LinkedList() { 
+			head = nullptr; 
+			//isAsc = false; 
+			len = 0; 
+		}
+		//LinkedList(bool isAsc) { head = nullptr; this->isAsc = isAsc; len = 0; }
 
 		// Array to Linked List Constructor
-		LinkedList(T** arr, int arrSize, bool isAsc) 
-		{ 
-			head = nullptr; 
-			this->isAsc = isAsc; 
-			len = 0; 
-			
-			if (isAsc)
-			{
-				for (int i = 0; i < arrSize; i++)
-				{
-					addItem(new T(*arr[i]));
+		LinkedList(T** arr, bool isAsc, int arrSize)
+		{
+			head = nullptr;
+			len = 0;
+
+			if (!isAsc) {
+				for (int i = 0; i < arrSize; i++) {
+					addItem(arr[i]);
 				}
 			}
 
-			else
-			{
-				for (int i = arrSize-1; i >= 0; i--)
-				{
-					addItem(new T(*arr[i]));
+			else {
+				for (int i = arrSize-1; i >= 0; i--) {
+					addItem(arr[i]);
 				}
 			}
+		
 		}
 
 		//	Linked List to Array Helper Function
-		T** toArray()
+		T** toArray(int key)                                   // 0 -> first name, 1 -> last name , 2-> MNumber
 		{
 			T** returnArr = new T*[size()];
 			Node<T>* curr = head;
@@ -66,6 +68,15 @@ class LinkedList
 			{
 				returnArr[i] = &curr->data;
 				curr = curr->next;
+				if (key == 0) {
+					returnArr[i]->key = returnArr[i]->firstName;
+				}
+				else if (key == 1) {
+					returnArr[i]->key = returnArr[i]->lastName;
+				}
+				else {
+					returnArr[i]->key = to_string(returnArr[i]->MNumber);
+				}
 			}
 			return returnArr;
 		}
@@ -93,7 +104,7 @@ class LinkedList
 			Node<T>* curr = head;
 			for (int i = 0; i < len; i++)
 			{
-				cout << curr->data << endl;
+				cout << string(curr->data) << endl;
 				curr = curr->next;
 			}
 		}
@@ -118,4 +129,3 @@ class LinkedList
 
 
 };
-
